@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -61,7 +61,10 @@ const getTooltipContent = (label: string, userRole: string) => {
 export default function Sidebar({ userRole = 'parent' }: SidebarProps) {
   const [isOpen, setIsOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  const [tooltipPosition, setTooltipPosition] = useState<{top: number, left: number} | null>(null);
   const pathname = usePathname();
+  const sidebarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -80,6 +83,22 @@ export default function Sidebar({ userRole = 'parent' }: SidebarProps) {
   );
 
   const toggleSidebar = () => setIsOpen(!isOpen);
+
+  const handleMouseEnter = (item: NavItem, event: React.MouseEvent) => {
+    if (!isOpen && !isMobile) {
+      const rect = event.currentTarget.getBoundingClientRect();
+      setHoveredItem(item.href);
+      setTooltipPosition({
+        top: rect.top + rect.height / 2,
+        left: rect.right + 8
+      });
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredItem(null);
+    setTooltipPosition(null);
+  };
 
   return (
     <>
@@ -128,6 +147,7 @@ export default function Sidebar({ userRole = 'parent' }: SidebarProps) {
 
       {/* Sidebar */}
       <aside
+        ref={sidebarRef}
         className={`
           fixed top-0 left-0 z-40 h-full bg-white shadow-xl border-r border-gray-200
           transition-all duration-300 ease-in-out
@@ -158,93 +178,91 @@ export default function Sidebar({ userRole = 'parent' }: SidebarProps) {
             {filteredNavItems.map((item) => {
               const isActive = pathname === item.href;
               return (
-                <div key={item.href} className="relative group">
-                  <Link
-                    href={item.href}
-                    className={`
-                      flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-all duration-200
-                      ${isActive 
-                        ? 'bg-blue-100 text-blue-700 border-l-4 border-blue-600' 
-                        : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
-                      }
-                      ${!isOpen && !isMobile ? 'justify-center px-2 hover:bg-blue-50 hover:scale-105' : ''}
-                    `}
-                  >
-                    <span className={`text-lg flex-shrink-0 transition-transform duration-200 ${!isOpen && !isMobile ? 'group-hover:scale-110' : ''}`}>
-                      {item.icon}
-                    </span>
-                    {(isOpen || isMobile) && (
-                      <span className="font-medium text-sm">{item.label}</span>
-                    )}
-                  </Link>
-                </div>
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`
+                    flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-all duration-200
+                    ${isActive 
+                      ? 'bg-blue-100 text-blue-700 border-l-4 border-blue-600' 
+                      : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                    }
+                    ${!isOpen && !isMobile ? 'justify-center px-2 hover:bg-blue-50 hover:scale-105' : ''}
+                  `}
+                  onMouseEnter={(e) => handleMouseEnter(item, e)}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  <span className={`text-lg flex-shrink-0 transition-transform duration-200 ${!isOpen && !isMobile ? 'hover:scale-110' : ''}`}>
+                    {item.icon}
+                  </span>
+                  {(isOpen || isMobile) && (
+                    <span className="font-medium text-sm">{item.label}</span>
+                  )}
+                </Link>
               );
             })}
           </nav>
 
           {/* Footer */}
           <div className={`p-4 border-t border-gray-200 ${!isOpen && !isMobile ? 'px-2' : ''}`}>
-            <div className="relative group">
-              <Link
-                href="/login"
-                className={`
-                  flex items-center space-x-3 px-3 py-2.5 rounded-lg text-red-600 hover:bg-red-50 transition-all duration-200
-                  ${!isOpen && !isMobile ? 'justify-center px-2 hover:scale-105' : ''}
-                `}
-                onClick={() => {
-                  sessionStorage.clear();
-                }}
-              >
-                <span className={`text-lg flex-shrink-0 transition-transform duration-200 ${!isOpen && !isMobile ? 'group-hover:scale-110' : ''}`}>
-                  🚪
-                </span>
-                {(isOpen || isMobile) && (
-                  <span className="font-medium text-sm">Logout</span>
-                )}
-              </Link>
-              
-            </div>
+            <Link
+              href="/login"
+              className={`
+                flex items-center space-x-3 px-3 py-2.5 rounded-lg text-red-600 hover:bg-red-50 transition-all duration-200
+                ${!isOpen && !isMobile ? 'justify-center px-2 hover:scale-105' : ''}
+              `}
+              onClick={() => {
+                sessionStorage.clear();
+              }}
+              onMouseEnter={(e) => {
+                if (!isOpen && !isMobile) {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  setHoveredItem('logout');
+                  setTooltipPosition({
+                    top: rect.top + rect.height / 2,
+                    left: rect.right + 8
+                  });
+                }
+              }}
+              onMouseLeave={handleMouseLeave}
+            >
+              <span className={`text-lg flex-shrink-0 transition-transform duration-200 ${!isOpen && !isMobile ? 'hover:scale-110' : ''}`}>
+                🚪
+              </span>
+              {(isOpen || isMobile) && (
+                <span className="font-medium text-sm">Logout</span>
+              )}
+            </Link>
           </div>
         </div>
       </aside>
 
-      {/* External Tooltips Container - Outside sidebar to prevent overflow */}
-      {!isOpen && !isMobile && (
-        <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-[9999]">
-          {filteredNavItems.map((item, index) => (
-            <div
-              key={`tooltip-${item.href}`}
-              className="absolute opacity-0 group-hover:opacity-100 transition-all duration-200"
-              style={{
-                left: '64px', // 16px sidebar width
-                top: `${120 + (index * 60)}px`, // Approximate position based on nav item index
-              }}
-            >
-              <div className="bg-gray-900 text-white text-sm px-3 py-2 rounded-lg whitespace-nowrap shadow-xl max-w-xs border border-gray-700 ml-2">
-                <div className="font-medium">{item.label}</div>
-                <div className="text-xs text-gray-300 mt-1">
-                  {getTooltipContent(item.label, userRole)}
+      {/* Tooltip Portal - Rendered outside sidebar */}
+      {hoveredItem && tooltipPosition && !isOpen && !isMobile && (
+        <div
+          className="fixed pointer-events-none z-[9999] transition-opacity duration-200"
+          style={{
+            top: tooltipPosition.top - 25, // Center vertically
+            left: tooltipPosition.left,
+          }}
+        >
+          <div className="bg-gray-900 text-white text-sm px-3 py-2 rounded-lg whitespace-nowrap shadow-xl max-w-xs border border-gray-700">
+            {hoveredItem === 'logout' ? (
+              <>
+                <div className="font-medium">Logout</div>
+                <div className="text-xs text-gray-300 mt-1">Sign out of your account</div>
+              </>
+            ) : (
+              <>
+                <div className="font-medium">
+                  {filteredNavItems.find(item => item.href === hoveredItem)?.label}
                 </div>
-                <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-2 h-2 bg-gray-900 rotate-45 border-l border-t border-gray-700"></div>
-              </div>
-            </div>
-          ))}
-          
-          {/* Logout tooltip */}
-          <div
-            className="absolute opacity-0 group-hover:opacity-100 transition-all duration-200"
-            style={{
-              left: '64px',
-              bottom: '80px', // Position near bottom for logout
-            }}
-          >
-            <div className="bg-gray-900 text-white text-sm px-3 py-2 rounded-lg whitespace-nowrap shadow-xl max-w-xs border border-gray-700 ml-2">
-              <div className="font-medium">Logout</div>
-              <div className="text-xs text-gray-300 mt-1">
-                Sign out of your account
-              </div>
-              <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-2 h-2 bg-gray-900 rotate-45 border-l border-t border-gray-700"></div>
-            </div>
+                <div className="text-xs text-gray-300 mt-1">
+                  {getTooltipContent(filteredNavItems.find(item => item.href === hoveredItem)?.label || '', userRole)}
+                </div>
+              </>
+            )}
+            <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-2 h-2 bg-gray-900 rotate-45 border-l border-t border-gray-700"></div>
           </div>
         </div>
       )}
