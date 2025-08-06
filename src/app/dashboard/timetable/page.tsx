@@ -4,6 +4,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
+interface TimetableData {
+  [grade: string]: {
+    [day: string]: string[];
+  };
+}
+
 export default function TimetablePage() {
   const [userRole, setUserRole] = useState("parent");
   const [selectedGrade, setSelectedGrade] = useState("4A");
@@ -28,7 +34,7 @@ export default function TimetablePage() {
 
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
-  const timetableData = {
+  const timetableData: TimetableData = {
     "4A": {
       "Monday": ["Mathematics", "English", "Science", "Break", "Shona", "History", "Lunch", "Art", "Physical Education"],
       "Tuesday": ["English", "Mathematics", "Geography", "Break", "Science", "Shona", "Lunch", "Music", "Study Hall"],
@@ -238,19 +244,19 @@ export default function TimetablePage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Button variant="outline" className="h-16">
                 <div className="text-center">
-                  <div className="text-2xl mb-1">=Å</div>
+                  <div className="text-2xl mb-1">=ï¿½</div>
                   <div className="text-sm">Create Schedule</div>
                 </div>
               </Button>
               <Button variant="outline" className="h-16">
                 <div className="text-center">
-                  <div className="text-2xl mb-1">=Ä</div>
+                  <div className="text-2xl mb-1">=ï¿½</div>
                   <div className="text-sm">Export PDF</div>
                 </div>
               </Button>
               <Button variant="outline" className="h-16">
                 <div className="text-center">
-                  <div className="text-2xl mb-1">=â</div>
+                  <div className="text-2xl mb-1">=ï¿½</div>
                   <div className="text-sm">Send to Parents</div>
                 </div>
               </Button>
