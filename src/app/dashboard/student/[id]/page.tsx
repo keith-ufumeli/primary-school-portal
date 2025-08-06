@@ -5,11 +5,12 @@ import { StatusBadge } from "@/components/ui/StatusBadge";
 import { students } from "@/lib/mockData";
 
 interface StudentProfileProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
-export default function StudentProfile({ params }: StudentProfileProps) {
-  const student = students.find(s => s.id === params.id);
+export default async function StudentProfile({ params }: StudentProfileProps) {
+  const { id } = await params;
+  const student = students.find(s => s.id === id);
   
   if (!student) {
     return notFound();
