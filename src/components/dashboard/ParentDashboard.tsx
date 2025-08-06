@@ -40,10 +40,7 @@ export default function ParentDashboard() {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <div>
-          <h1 className="text-2xl font-bold">Parent Dashboard</h1>
-          <p className="text-gray-600">Welcome back, {parent?.name || "Parent"}</p>
-        </div>
+        <h1 className="text-2xl font-bold">Parent Dashboard</h1>
         <ChildSelector 
           children={students.filter(s => s.id === selectedChild || s.id === "std-02")} 
           selected={selectedChild} 

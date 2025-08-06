@@ -16,15 +16,24 @@ interface HeaderProps {
 export default function Header({ user }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   
+  const getRoleDisplay = () => {
+    switch (user.role) {
+      case "admin":
+        return "School Administrator";
+      case "teacher":
+        return `Teacher (${user.classes?.join(", ") || ""})`;
+      case "parent":
+        return "Parent";
+      default:
+        return "User";
+    }
+  };
+  
   return (
     <header className="bg-white shadow-sm p-4 flex justify-between items-center relative">
       <div className="flex-1 pr-4">
-        <h1 className="text-xl font-bold text-gray-800 truncate">Welcome, {user.name}</h1>
-        <p className="text-gray-600 text-sm truncate">
-          {user.role === "admin" && "School Administrator"}
-          {user.role === "teacher" && `Teacher (${user.classes?.join(", ") || ""})`}
-          {user.role === "parent" && "Parent"}
-        </p>
+        <h1 className="text-lg font-semibold text-gray-800 truncate">{user.name}</h1>
+        <p className="text-gray-600 text-sm truncate">{getRoleDisplay()}</p>
       </div>
       
       <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>

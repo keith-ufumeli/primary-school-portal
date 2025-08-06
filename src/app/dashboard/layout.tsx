@@ -7,12 +7,15 @@ import { ReactNode } from "react";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const [userRole, setUserRole] = useState("parent");
+  const [username, setUsername] = useState("");
   const [mounted, setMounted] = useState(false);
   
   useEffect(() => {
     setMounted(true);
     const role = sessionStorage.getItem("userRole") || "parent";
+    const user = sessionStorage.getItem("username") || "";
     setUserRole(role);
+    setUsername(user);
   }, []);
 
   if (!mounted) {
@@ -23,7 +26,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     );
   }
   
-  const user = getUserData(userRole);
+  const user = getUserData(username);
 
   return (
     <div className="min-h-screen bg-gray-50">

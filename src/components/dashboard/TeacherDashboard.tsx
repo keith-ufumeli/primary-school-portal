@@ -31,10 +31,7 @@ export default function TeacherDashboard() {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <div>
-          <h1 className="text-2xl font-bold">Teacher Dashboard</h1>
-          <p className="text-gray-600">Welcome back, {teacher?.name || "Teacher"}</p>
-        </div>
+        <h1 className="text-2xl font-bold">Teacher Dashboard</h1>
         <Button>Create Assignment</Button>
       </div>
       

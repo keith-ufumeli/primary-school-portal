@@ -34,10 +34,7 @@ export default function AdminDashboard() {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <div>
-          <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-          <p className="text-gray-600">Welcome back, {admin?.name || "Administrator"}</p>
-        </div>
+        <h1 className="text-2xl font-bold">Admin Dashboard</h1>
         <Button>Generate Report</Button>
       </div>
       
