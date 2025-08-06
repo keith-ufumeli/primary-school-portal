@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import RoleSwitcher from "@/components/ui/RoleSwitcher";
+import Modal from "@/components/ui/Modal";
 import { users } from "@/lib/mockData";
 
 export default function LoginPage() {
@@ -13,36 +14,78 @@ export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [mounted, setMounted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [modal, setModal] = useState<{
+    isOpen: boolean;
+    title: string;
+    message: string;
+    type: 'error' | 'success' | 'warning' | 'info';
+  }>({ isOpen: false, title: '', message: '', type: 'info' });
   const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    // Find user by username and role match
-    const user = Object.values(users).find(
-      (u: any) => u.username === username && u.role === role
-    );
-    
-    if (user || (username && password)) {
-      // Store user info in session
-      const userData = user || { role, username, name: username };
-      sessionStorage.setItem("userRole", userData.role);
-      sessionStorage.setItem("username", userData.username);
-      sessionStorage.setItem("userName", userData.name || username);
+    if (!username || !password) {
+      setModal({
+        isOpen: true,
+        title: 'Validation Error',
+        message: 'Please enter both username and password to continue.',
+        type: 'warning'
+      });
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Redirect to dashboard
-      router.push("/dashboard");
-    } else {
-      alert("Please enter both username and password");
+      // Find user by username and role match
+      const user = Object.values(users).find(
+        (u: any) => u.username === username && u.role === role
+      );
+      
+      if (user || (username && password)) {
+        // Store user info in session
+        const userData = user || { role, username, name: username };
+        sessionStorage.setItem("userRole", userData.role);
+        sessionStorage.setItem("username", userData.username);
+        sessionStorage.setItem("userName", userData.name || username);
+        
+        // Redirect to dashboard
+        router.push("/dashboard");
+      } else {
+        setModal({
+          isOpen: true,
+          title: 'Login Failed',
+          message: 'Invalid username or password. Please check your credentials and try again.',
+          type: 'error'
+        });
+      }
+    } catch (error) {
+      setModal({
+        isOpen: true,
+        title: 'Connection Error',
+        message: 'Unable to connect to the server. Please check your internet connection and try again.',
+        type: 'error'
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   if (!mounted) {
-    return null;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
   }
 
   return (
@@ -86,8 +129,19 @@ export default function LoginPage() {
               />
             </div>
             
-            <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
-              Sign In
+            <Button 
+              type="submit" 
+              className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <div className="flex items-center justify-center space-x-2">
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                  <span>Signing In...</span>
+                </div>
+              ) : (
+                "Sign In"
+              )}
             </Button>
             
             <div className="text-center text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
@@ -102,6 +156,14 @@ export default function LoginPage() {
           </form>
         </CardContent>
       </Card>
+      
+      <Modal
+        isOpen={modal.isOpen}
+        onClose={() => setModal({ ...modal, isOpen: false })}
+        title={modal.title}
+        message={modal.message}
+        type={modal.type}
+      />
     </div>
   );
 }
