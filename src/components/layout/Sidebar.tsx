@@ -1,46 +1,153 @@
-"use client"
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { LayoutDashboard, User, Bell, Book, Calendar, MessageSquare, CreditCard } from "lucide-react";
+"use client";
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { Button } from '@/components/ui/button';
 
-const navItems = [
-  { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
-  { href: "/dashboard/classes", icon: Book, label: "Classes" },
-  { href: "/dashboard/announcements", icon: Bell, label: "Announcements" },
-  { href: "/dashboard/timetable", icon: Calendar, label: "Timetable" },
-  { href: "/dashboard/messages", icon: MessageSquare, label: "Messages" },
-  { href: "/dashboard/fees", icon: CreditCard, label: "Fees" },
+interface SidebarProps {
+  userRole?: string;
+}
+
+interface NavItem {
+  href: string;
+  label: string;
+  icon: string;
+  roles: string[];
+}
+
+const navigationItems: NavItem[] = [
+  { href: '/dashboard', label: 'Dashboard', icon: '🏠', roles: ['admin', 'teacher', 'parent'] },
+  { href: '/dashboard/classes', label: 'Classes', icon: '👥', roles: ['admin', 'teacher'] },
+  { href: '/dashboard/student', label: 'Students', icon: '🎓', roles: ['admin', 'teacher', 'parent'] },
+  { href: '/dashboard/timetable', label: 'Timetable', icon: '📅', roles: ['admin', 'teacher', 'parent'] },
+  { href: '/dashboard/announcements', label: 'Announcements', icon: '📢', roles: ['admin', 'teacher', 'parent'] },
+  { href: '/dashboard/messages', label: 'Messages', icon: '💬', roles: ['admin', 'teacher', 'parent'] },
+  { href: '/dashboard/fees', label: 'Fees', icon: '💳', roles: ['admin', 'parent'] },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ userRole = 'parent' }: SidebarProps) {
+  const [isOpen, setIsOpen] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
   const pathname = usePathname();
-  
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      setIsOpen(!mobile);
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  const filteredNavItems = navigationItems.filter(item => 
+    item.roles.includes(userRole)
+  );
+
+  const toggleSidebar = () => setIsOpen(!isOpen);
+
   return (
-    <div className="w-64 bg-blue-800 text-white h-screen p-4">
-      <div className="flex items-center mb-8 p-2">
-        <div className="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16" />
-        <div className="ml-3">
-          <h1 className="font-bold text-xl">School Portal</h1>
-          <p className="text-blue-200 text-sm">Primary Education</p>
+    <>
+      {/* Mobile backdrop */}
+      {isMobile && isOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+          onClick={toggleSidebar}
+        />
+      )}
+
+      {/* Toggle button */}
+      <Button
+        onClick={toggleSidebar}
+        className="fixed top-4 left-4 z-50 bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg shadow-lg md:hidden"
+        size="sm"
+      >
+        {isOpen ? '✕' : '☰'}
+      </Button>
+
+      {/* Desktop toggle button */}
+      <Button
+        onClick={toggleSidebar}
+        className="hidden md:block fixed top-4 left-4 z-50 bg-white hover:bg-gray-50 text-gray-600 p-2 rounded-lg shadow-md border"
+        size="sm"
+      >
+        {isOpen ? '◀' : '▶'}
+      </Button>
+
+      {/* Sidebar */}
+      <aside
+        className={`
+          fixed top-0 left-0 z-40 h-full bg-white shadow-xl border-r border-gray-200
+          transition-all duration-300 ease-in-out
+          ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+          ${isOpen ? 'w-64' : 'md:w-16'}
+          ${isMobile ? 'w-64' : ''}
+        `}
+      >
+        <div className="flex flex-col h-full">
+          {/* Header */}
+          <div className={`p-4 border-b border-gray-200 ${!isOpen && !isMobile ? 'px-2' : ''}`}>
+            <div className={`flex items-center space-x-3 ${!isOpen && !isMobile ? 'justify-center' : ''}`}>
+              <div className="bg-blue-100 rounded-lg p-2">
+                <span className="text-blue-600 text-xl">📚</span>
+              </div>
+              {(isOpen || isMobile) && (
+                <div>
+                  <h2 className="font-semibold text-gray-800 text-sm">Lorem Primary</h2>
+                  <p className="text-xs text-gray-500 capitalize">{userRole} Portal</p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Navigation */}
+          <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+            {filteredNavItems.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`
+                    flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-all duration-200
+                    ${isActive 
+                      ? 'bg-blue-100 text-blue-700 border-l-4 border-blue-600' 
+                      : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                    }
+                    ${!isOpen && !isMobile ? 'justify-center px-2' : ''}
+                  `}
+                >
+                  <span className="text-lg flex-shrink-0">{item.icon}</span>
+                  {(isOpen || isMobile) && (
+                    <span className="font-medium text-sm">{item.label}</span>
+                  )}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Footer */}
+          <div className={`p-4 border-t border-gray-200 ${!isOpen && !isMobile ? 'px-2' : ''}`}>
+            <Link
+              href="/login"
+              className={`
+                flex items-center space-x-3 px-3 py-2.5 rounded-lg text-red-600 hover:bg-red-50 transition-all duration-200
+                ${!isOpen && !isMobile ? 'justify-center px-2' : ''}
+              `}
+              onClick={() => {
+                sessionStorage.clear();
+              }}
+            >
+              <span className="text-lg flex-shrink-0">🚪</span>
+              {(isOpen || isMobile) && (
+                <span className="font-medium text-sm">Logout</span>
+              )}
+            </Link>
+          </div>
         </div>
-      </div>
-      
-      <nav>
-        {navItems.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className={`flex items-center p-3 rounded-lg mb-1 ${
-              pathname === item.href 
-                ? "bg-blue-700 font-medium" 
-                : "hover:bg-blue-700/50"
-            }`}
-          >
-            <item.icon className="mr-3 h-5 w-5" />
-            <span>{item.label}</span>
-          </Link>
-        ))}
-      </nav>
-    </div>
+      </aside>
+    </>
   );
 }
