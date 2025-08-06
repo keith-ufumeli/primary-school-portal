@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -154,8 +154,8 @@ export default function TimetablePage() {
 
                 {/* Time slots and subjects */}
                 {timeSlots.map((timeSlot, timeIndex) => (
-                  <>
-                    <div key={timeSlot} className="text-xs p-3 bg-gray-50 rounded border font-medium text-gray-600">
+                  <React.Fragment key={timeSlot}>
+                    <div className="text-xs p-3 bg-gray-50 rounded border font-medium text-gray-600">
                       {timeSlot}
                     </div>
                     {days.map((day) => {
@@ -171,7 +171,7 @@ export default function TimetablePage() {
                         </div>
                       );
                     })}
-                  </>
+                  </React.Fragment>
                 ))}
               </div>
             </div>
