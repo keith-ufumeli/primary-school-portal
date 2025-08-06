@@ -1,14 +1,30 @@
-import { useState } from "react";
+"use client";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import ChildSelector from "@/components/ui/ChildSelector";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import AttendanceCalendar from "@/components/ui/AttendanceCalendar";
-import { students } from "@/lib/mockData";
+import { students, getUserData } from "@/lib/mockData";
 
 export default function ParentDashboard() {
   const [selectedChild, setSelectedChild] = useState(students[0].id);
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  const parent = getUserData(sessionStorage.getItem("username") || "");
   const child = students.find(s => s.id === selectedChild);
   
   if (!child) {
@@ -24,7 +40,10 @@ export default function ParentDashboard() {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Parent Dashboard</h1>
+        <div>
+          <h1 className="text-2xl font-bold">Parent Dashboard</h1>
+          <p className="text-gray-600">Welcome back, {parent?.name || "Parent"}</p>
+        </div>
         <ChildSelector 
           children={students.filter(s => s.id === selectedChild || s.id === "std-02")} 
           selected={selectedChild} 

@@ -58,8 +58,18 @@ export default function LoginPage() {
         sessionStorage.setItem("username", userData.username);
         sessionStorage.setItem("userName", userData.name || username);
         
-        // Redirect to dashboard
-        router.push("/dashboard");
+        // Show success message
+        setModal({
+          isOpen: true,
+          title: 'Login Successful',
+          message: `Welcome back, ${userData.name || username}! Redirecting to your dashboard...`,
+          type: 'success'
+        });
+        
+        // Redirect to dashboard after a short delay
+        setTimeout(() => {
+          router.push("/dashboard");
+        }, 1500);
       } else {
         setModal({
           isOpen: true,
