@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ReactNode } from "react";
 import { MainLoaderProvider } from "@/components/ui/MainLoader";
+import { NavigationProvider } from "@/components/providers/NavigationProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +16,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body className={`${inter.className} bg-gray-50`}>
         <MainLoaderProvider>
-          {children}
+          <NavigationProvider>
+            {children}
+          </NavigationProvider>
         </MainLoaderProvider>
       </body>
     </html>

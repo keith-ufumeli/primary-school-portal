@@ -3,12 +3,14 @@ import { useState, useEffect } from "react";
 import Sidebar from "@/components/layout/Sidebar";
 import Header from "@/components/layout/Header";
 import { getUserData } from "@/lib/mockData";
+import { useMainLoader } from "@/components/ui/MainLoader";
 import { ReactNode } from "react";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const [userRole, setUserRole] = useState("parent");
   const [username, setUsername] = useState("");
   const [mounted, setMounted] = useState(false);
+  const { showLoader, hideLoader } = useMainLoader();
   
   useEffect(() => {
     setMounted(true);
@@ -19,6 +21,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   }, []);
 
   if (!mounted) {
+    showLoader();
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>

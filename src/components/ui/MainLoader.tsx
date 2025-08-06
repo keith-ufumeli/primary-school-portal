@@ -88,15 +88,41 @@ export function useRouteLoader() {
   const { showLoader, hideLoader } = useMainLoader();
 
   useEffect(() => {
-    const handleStart = () => showLoader();
-    const handleComplete = () => hideLoader();
+    const handleStart = () => {
+      showLoader();
+      // Auto-hide after a short delay to prevent stuck loading states
+      setTimeout(() => hideLoader(), 2000);
+    };
 
-    // Listen for route change events
-    window.addEventListener('beforeunload', handleStart);
+    // Listen for Next.js route change events
+    const handleRouteChangeStart = () => handleStart();
+    const handleRouteChangeComplete = () => hideLoader();
+    const handleRouteChangeError = () => hideLoader();
+
+    // Add event listeners for Next.js router events
+    if (typeof window !== 'undefined') {
+      // Listen for navigation events
+      window.addEventListener('popstate', handleStart);
+      
+      // Listen for link clicks (this is a fallback)
+      document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        const link = target.closest('a');
+        if (link && link.href && !link.href.startsWith('javascript:') && !link.href.startsWith('#')) {
+          const currentPath = window.location.pathname;
+          const newPath = new URL(link.href).pathname;
+          if (currentPath !== newPath) {
+            handleStart();
+          }
+        }
+      });
+    }
     
     // Cleanup
     return () => {
-      window.removeEventListener('beforeunload', handleStart);
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('popstate', handleStart);
+      }
     };
   }, [showLoader, hideLoader]);
 } 
