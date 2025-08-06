@@ -50,10 +50,10 @@ export default function Sidebar({ userRole = 'parent' }: SidebarProps) {
 
   return (
     <>
-      {/* Enhanced backdrop overlay */}
-      {isOpen && isMobile && (
+      {/* Enhanced backdrop overlay for all screens */}
+      {isOpen && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300 z-30 md:hidden"
+          className="fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300 z-30"
           onClick={toggleSidebar}
           role="button"
           tabIndex={0}
@@ -80,11 +80,11 @@ export default function Sidebar({ userRole = 'parent' }: SidebarProps) {
         {isOpen ? '✕' : '☰'}
       </Button>
 
-      {/* Desktop toggle button */}
+      {/* Desktop toggle button - positioned to avoid header overlap */}
       <Button
         onClick={toggleSidebar}
         className={`
-          hidden md:block fixed top-4 z-50 bg-white hover:bg-gray-50 text-gray-600 p-2 rounded-lg shadow-md border transition-all duration-300
+          hidden md:block fixed top-20 z-50 bg-white hover:bg-gray-50 text-gray-600 p-2 rounded-lg shadow-md border transition-all duration-300
           ${isOpen ? 'left-72' : 'left-20'}
         `}
         size="sm"
