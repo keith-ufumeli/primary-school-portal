@@ -29,10 +29,12 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     <div className="min-h-screen bg-gray-50">
       <Sidebar userRole={userRole} />
       
-      {/* Main content area with responsive margin */}
+      {/* Main content area with responsive margin and proper spacing */}
       <div className="transition-all duration-300 pl-0 md:pl-16">
-        <Header user={user} />
-        <main className="p-4 md:p-6 pt-20 md:pt-6 min-h-screen overflow-x-hidden">
+        <div className="pt-16 md:pt-4">
+          <Header user={user} />
+        </div>
+        <main className="p-4 md:p-6 min-h-screen overflow-x-hidden">
           <div className="max-w-7xl mx-auto">
             {children}
           </div>

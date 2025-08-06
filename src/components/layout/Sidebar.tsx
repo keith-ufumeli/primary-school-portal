@@ -50,19 +50,32 @@ export default function Sidebar({ userRole = 'parent' }: SidebarProps) {
 
   return (
     <>
-      {/* Mobile backdrop */}
-      {isMobile && isOpen && (
+      {/* Enhanced backdrop overlay */}
+      {isOpen && isMobile && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+          className="fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300 z-30 md:hidden"
           onClick={toggleSidebar}
+          role="button"
+          tabIndex={0}
+          aria-label="Close sidebar"
+          onKeyDown={(e) => {
+            if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              toggleSidebar();
+            }
+          }}
         />
       )}
 
-      {/* Toggle button */}
+      {/* Mobile toggle button */}
       <Button
         onClick={toggleSidebar}
-        className="fixed top-4 left-4 z-50 bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg shadow-lg md:hidden"
+        className={`
+          fixed top-4 z-50 bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg shadow-lg md:hidden transition-all duration-300
+          ${isOpen ? 'right-4' : 'left-4'}
+        `}
         size="sm"
+        aria-label={isOpen ? 'Close sidebar' : 'Open sidebar'}
       >
         {isOpen ? '✕' : '☰'}
       </Button>
@@ -70,8 +83,12 @@ export default function Sidebar({ userRole = 'parent' }: SidebarProps) {
       {/* Desktop toggle button */}
       <Button
         onClick={toggleSidebar}
-        className="hidden md:block fixed top-4 left-4 z-50 bg-white hover:bg-gray-50 text-gray-600 p-2 rounded-lg shadow-md border"
+        className={`
+          hidden md:block fixed top-4 z-50 bg-white hover:bg-gray-50 text-gray-600 p-2 rounded-lg shadow-md border transition-all duration-300
+          ${isOpen ? 'left-72' : 'left-20'}
+        `}
         size="sm"
+        aria-label={isOpen ? 'Collapse sidebar' : 'Expand sidebar'}
       >
         {isOpen ? '◀' : '▶'}
       </Button>
@@ -85,18 +102,19 @@ export default function Sidebar({ userRole = 'parent' }: SidebarProps) {
           ${isOpen ? 'w-64' : 'md:w-16'}
           ${isMobile ? 'w-64' : ''}
         `}
+        aria-hidden={!isOpen && isMobile}
       >
         <div className="flex flex-col h-full">
-          {/* Header */}
-          <div className={`p-4 border-b border-gray-200 ${!isOpen && !isMobile ? 'px-2' : ''}`}>
+          {/* Header with proper spacing for toggle button */}
+          <div className={`${isMobile ? 'pt-16' : 'pt-4'} px-4 pb-4 border-b border-gray-200 ${!isOpen && !isMobile ? 'px-2' : ''}`}>
             <div className={`flex items-center space-x-3 ${!isOpen && !isMobile ? 'justify-center' : ''}`}>
-              <div className="bg-blue-100 rounded-lg p-2">
+              <div className="bg-blue-100 rounded-lg p-2 flex-shrink-0">
                 <span className="text-blue-600 text-xl">📚</span>
               </div>
               {(isOpen || isMobile) && (
-                <div>
-                  <h2 className="font-semibold text-gray-800 text-sm">Lorem Primary</h2>
-                  <p className="text-xs text-gray-500 capitalize">{userRole} Portal</p>
+                <div className="min-w-0 flex-1">
+                  <h2 className="font-semibold text-gray-800 text-sm truncate">Lorem Primary</h2>
+                  <p className="text-xs text-gray-500 capitalize truncate">{userRole} Portal</p>
                 </div>
               )}
             </div>

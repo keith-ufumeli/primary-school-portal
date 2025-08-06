@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Button } from './button';
+import { AlertCircle, CheckCircle, AlertTriangle, Info } from 'lucide-react';
 
 interface ModalProps {
   isOpen: boolean;
@@ -28,7 +29,7 @@ export default function Modal({ isOpen, onClose, title, message, type = 'info' }
     switch (type) {
       case 'error':
         return {
-          icon: '❌',
+          icon: <AlertCircle className="w-5 h-5 text-red-600" />,
           bg: 'bg-red-50',
           border: 'border-red-200',
           titleColor: 'text-red-800',
@@ -36,7 +37,7 @@ export default function Modal({ isOpen, onClose, title, message, type = 'info' }
         };
       case 'success':
         return {
-          icon: '✅',
+          icon: <CheckCircle className="w-5 h-5 text-green-600" />,
           bg: 'bg-green-50',
           border: 'border-green-200',
           titleColor: 'text-green-800',
@@ -44,7 +45,7 @@ export default function Modal({ isOpen, onClose, title, message, type = 'info' }
         };
       case 'warning':
         return {
-          icon: '⚠️',
+          icon: <AlertTriangle className="w-5 h-5 text-yellow-600" />,
           bg: 'bg-yellow-50',
           border: 'border-yellow-200',
           titleColor: 'text-yellow-800',
@@ -52,7 +53,7 @@ export default function Modal({ isOpen, onClose, title, message, type = 'info' }
         };
       default:
         return {
-          icon: 'ℹ️',
+          icon: <Info className="w-5 h-5 text-blue-600" />,
           bg: 'bg-blue-50',
           border: 'border-blue-200',
           titleColor: 'text-blue-800',
@@ -76,7 +77,7 @@ export default function Modal({ isOpen, onClose, title, message, type = 'info' }
         <div className={`${styles.bg} px-6 py-4 rounded-t-lg`}>
           <div className="flex items-center space-x-3">
             <div className={`${styles.iconBg} rounded-full w-10 h-10 flex items-center justify-center`}>
-              <span className="text-lg">{styles.icon}</span>
+              {styles.icon}
             </div>
             <h3 className={`text-lg font-semibold ${styles.titleColor}`}>
               {title}
