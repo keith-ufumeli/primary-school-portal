@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { StatusBadge } from "@/components/ui/StatusBadge";
-import { users, students } from "@/lib/mockData";
+import { users, students, Student } from "@/lib/mockData";
 
 export default function StudentsPage() {
   const [userRole, setUserRole] = useState("parent");
@@ -61,8 +61,8 @@ export default function StudentsPage() {
       return 0;
     });
 
-  const getAverageGrade = (student: any) => {
-    const total = student.subjects.reduce((sum: number, subject: any) => sum + subject.grade, 0);
+  const getAverageGrade = (student: Student) => {
+    const total = student.subjects.reduce((sum: number, subject) => sum + subject.grade, 0);
     return Math.round(total / student.subjects.length);
   };
 

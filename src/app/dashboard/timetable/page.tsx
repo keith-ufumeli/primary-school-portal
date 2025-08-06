@@ -134,7 +134,7 @@ export default function TimetablePage() {
               Grade {selectedGrade} - Weekly Schedule
               {userRole === "parent" && (
                 <span className="ml-2 text-sm font-normal text-gray-500">
-                  (Your child's class)
+                  (Your child&apos;s class)
                 </span>
               )}
             </CardTitle>

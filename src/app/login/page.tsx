@@ -51,7 +51,7 @@ export default function LoginPage() {
       
       // Find user by username and role match
       const user = Object.values(users).find(
-        (u: any) => u.username === username && u.role === role
+        (u: { username: string; role: string }) => u.username === username && u.role === role
       );
       
       if (user || (username && password)) {
@@ -81,7 +81,7 @@ export default function LoginPage() {
           type: 'error'
         });
       }
-    } catch (error) {
+    } catch {
       setModal({
         isOpen: true,
         title: 'Connection Error',

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { StatusBadge } from "@/components/ui/StatusBadge";
-import { users, students } from "@/lib/mockData";
+import { students } from "@/lib/mockData";
 
 export default function FeesPage() {
   const [userRole, setUserRole] = useState("parent");

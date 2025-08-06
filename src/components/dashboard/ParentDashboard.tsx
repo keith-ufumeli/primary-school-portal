@@ -6,7 +6,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recha
 import ChildSelector from "@/components/ui/ChildSelector";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import AttendanceCalendar from "@/components/ui/AttendanceCalendar";
-import { students, getUserData } from "@/lib/mockData";
+import { students } from "@/lib/mockData";
 
 export default function ParentDashboard() {
   const [selectedChild, setSelectedChild] = useState(students[0].id);
@@ -24,7 +24,7 @@ export default function ParentDashboard() {
     );
   }
 
-  const parent = getUserData(sessionStorage.getItem("username") || "");
+  // const parent = getUserData(sessionStorage.getItem("username") || "");
   const child = students.find(s => s.id === selectedChild);
   
   if (!child) {
@@ -42,10 +42,11 @@ export default function ParentDashboard() {
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Parent Dashboard</h1>
         <ChildSelector 
-          children={students.filter(s => s.id === selectedChild || s.id === "std-02")} 
           selected={selectedChild} 
-          onChange={setSelectedChild} 
-        />
+          onChange={setSelectedChild}
+        >
+          {students.filter(s => s.id === selectedChild || s.id === "std-02")}
+        </ChildSelector>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">

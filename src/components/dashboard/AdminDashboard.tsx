@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
-import { getUserData } from "@/lib/mockData";
+// import { getUserData } from "@/lib/mockData";
 
 export default function AdminDashboard() {
   const [mounted, setMounted] = useState(false);
@@ -20,7 +20,7 @@ export default function AdminDashboard() {
     );
   }
 
-  const admin = getUserData(sessionStorage.getItem("username") || "");
+  // const admin = getUserData(sessionStorage.getItem("username") || "");
   const data = [
     { name: 'Grade 1', students: 45 },
     { name: 'Grade 2', students: 52 },

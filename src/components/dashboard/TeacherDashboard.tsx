@@ -5,16 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { students } from "@/lib/mockData";
-import { getUserData } from "@/lib/mockData";
 
 export default function TeacherDashboard() {
-  const [userRole, setUserRole] = useState("teacher");
   const [mounted, setMounted] = useState(false);
   
   useEffect(() => {
     setMounted(true);
-    const role = sessionStorage.getItem("userRole") || "teacher";
-    setUserRole(role);
   }, []);
 
   if (!mounted) {
@@ -25,7 +21,7 @@ export default function TeacherDashboard() {
     );
   }
 
-  const teacher = getUserData(sessionStorage.getItem("username") || "");
+  // const teacher = getUserData(sessionStorage.getItem("username") || "");
   const myStudents = students.filter(s => s.grade === "4A" || s.grade === "4B");
   
   return (

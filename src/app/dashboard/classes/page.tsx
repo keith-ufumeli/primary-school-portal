@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { StatusBadge } from "@/components/ui/StatusBadge";
-import { users, students } from "@/lib/mockData";
+import { students, Student } from "@/lib/mockData";
 
 export default function ClassesPage() {
   const [userRole, setUserRole] = useState("parent");
@@ -23,8 +23,8 @@ export default function ClassesPage() {
     student.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const getAverageGrade = (student: any) => {
-    const total = student.subjects.reduce((sum: number, subject: any) => sum + subject.grade, 0);
+  const getAverageGrade = (student: Student) => {
+    const total = student.subjects.reduce((sum: number, subject) => sum + subject.grade, 0);
     return Math.round(total / student.subjects.length);
   };
 

@@ -42,10 +42,13 @@ export function MainLoaderProvider({ children }: MainLoaderProviderProps) {
     });
   }, []);
 
+  // Use loadingCount to prevent premature hiding
+  const shouldShowLoader = loadingCount > 0 || isLoading;
+
   return (
     <LoadingContext.Provider value={{ isLoading, setIsLoading, showLoader, hideLoader }}>
       {children}
-      <MainLoaderOverlay isLoading={isLoading} />
+      <MainLoaderOverlay isLoading={shouldShowLoader} />
     </LoadingContext.Provider>
   );
 }
@@ -93,11 +96,6 @@ export function useRouteLoader() {
       // Auto-hide after a short delay to prevent stuck loading states
       setTimeout(() => hideLoader(), 2000);
     };
-
-    // Listen for Next.js route change events
-    const handleRouteChangeStart = () => handleStart();
-    const handleRouteChangeComplete = () => hideLoader();
-    const handleRouteChangeError = () => hideLoader();
 
     // Add event listeners for Next.js router events
     if (typeof window !== 'undefined') {
