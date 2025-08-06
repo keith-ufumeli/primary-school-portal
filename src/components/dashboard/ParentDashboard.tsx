@@ -3,12 +3,17 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import ChildSelector from "@/components/ui/ChildSelector";
-import StatusBadge from "@/components/ui/StatusBadge";
+import { StatusBadge } from "@/components/ui/StatusBadge";
+import AttendanceCalendar from "@/components/ui/AttendanceCalendar";
 import { students } from "@/lib/mockData";
 
 export default function ParentDashboard() {
   const [selectedChild, setSelectedChild] = useState(students[0].id);
   const child = students.find(s => s.id === selectedChild);
+  
+  if (!child) {
+    return <div>Child not found</div>;
+  }
   
   // Prepare chart data
   const chartData = child.subjects.map(subject => ({

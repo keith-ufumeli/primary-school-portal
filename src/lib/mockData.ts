@@ -1,3 +1,28 @@
+// Types
+export interface Student {
+  id: string;
+  name: string;
+  grade: string;
+  photo: string;
+  attendance: Record<string, string>;
+  subjects: Array<{
+    name: string;
+    grade: number;
+    teacher: string;
+  }>;
+  fees: Array<{
+    term: number;
+    due: string;
+    amount: number;
+    status: string;
+  }>;
+  behavior: Array<{
+    date: string;
+    type: string;
+    note: string;
+  }>;
+}
+
 // Core mock data structure
 export const users = {
     admin: {
@@ -58,9 +83,25 @@ export const users = {
       title: "Sports Day Postponed",
       content: "Due to weather conditions, sports day has been moved to next Friday.",
       date: "2023-10-05",
-      audience: "all"
+      audience: "all",
+      attachment: null
     },
-    // ... more announcements
+    {
+      id: 2,
+      title: "Parent-Teacher Meeting",
+      content: "Monthly parent-teacher meeting scheduled for next week. Please check your email for details.",
+      date: "2023-10-03",
+      audience: "parent",
+      attachment: "meeting_schedule.pdf"
+    },
+    {
+      id: 3,
+      title: "School Calendar Update",
+      content: "Updated school calendar for the academic year 2023-2024.",
+      date: "2023-10-01",
+      audience: "all",
+      attachment: "school_calendar_2023.pdf"
+    }
   ];
   
   export const timetable = {
@@ -69,3 +110,30 @@ export const users = {
       // ... more periods
     ]
   };
+
+
+// NEW: Get user data function
+export function getUserData(role: string) {
+  switch(role) {
+    case "admin":
+      return users.admin;
+    case "teacher":
+      return users.teacher;
+    case "parent":
+      return users.parent;
+    default:
+      return users.parent; // Default fallback
+  }
+}
+
+// NEW: Get student by ID
+export function getStudentById(id: string) {
+  return students.find(student => student.id === id);
+}
+
+// NEW: Get announcements for role
+export function getAnnouncements(role: string) {
+  return announcements.filter(ann => 
+    ann.audience === "all" || ann.audience === role
+  );
+}

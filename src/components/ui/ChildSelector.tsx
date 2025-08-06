@@ -1,6 +1,13 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Student } from "@/lib/mockData";
 
-export default function ChildSelector({ children, selected, onChange }) {
+interface ChildSelectorProps {
+  children: Student[];
+  selected: string;
+  onChange: (value: string) => void;
+}
+
+export default function ChildSelector({ children, selected, onChange }: ChildSelectorProps) {
   return (
     <div className="flex items-center">
       <label className="mr-2 text-sm font-medium">Viewing:</label>

@@ -1,7 +1,13 @@
 import { cn } from "@/lib/utils";
 
-export function StatusBadge({ status, size = "default", className }) {
-  const statusConfig = {
+interface StatusBadgeProps {
+  status: string;
+  size?: "default" | "xs";
+  className?: string;
+}
+
+export function StatusBadge({ status, size = "default", className }: StatusBadgeProps) {
+  const statusConfig: Record<string, { text: string; color: string }> = {
     paid: { text: "Paid", color: "bg-green-100 text-green-800" },
     due: { text: "Due", color: "bg-yellow-100 text-yellow-800" },
     overdue: { text: "Overdue", color: "bg-red-100 text-red-800" },

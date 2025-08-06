@@ -1,13 +1,17 @@
 import { format, eachDayOfInterval, startOfMonth, endOfMonth } from "date-fns";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 
-export default function AttendanceCalendar({ records }) {
+interface AttendanceCalendarProps {
+  records: Record<string, string>;
+}
+
+export default function AttendanceCalendar({ records }: AttendanceCalendarProps) {
   const today = new Date();
   const monthStart = startOfMonth(today);
   const monthEnd = endOfMonth(today);
   const daysInMonth = eachDayOfInterval({ start: monthStart, end: monthEnd });
   
-  const getStatus = (date) => {
+  const getStatus = (date: Date) => {
     const dateString = format(date, "yyyy-MM-dd");
     return records[dateString] || "pending";
   };

@@ -1,10 +1,14 @@
 import { notFound } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import StatusBadge from "@/components/ui/StatusBadge";
+import { StatusBadge } from "@/components/ui/StatusBadge";
 import { students } from "@/lib/mockData";
 
-export default function StudentProfile({ params }) {
+interface StudentProfileProps {
+  params: { id: string };
+}
+
+export default function StudentProfile({ params }: StudentProfileProps) {
   const student = students.find(s => s.id === params.id);
   
   if (!student) {
