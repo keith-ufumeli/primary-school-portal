@@ -1,9 +1,9 @@
 "use client";
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, Suspense } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useMainLoader } from '@/components/ui/MainLoader';
 
-export function NavigationProvider({ children }: { children: React.ReactNode }) {
+function NavigationProviderInner({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { showLoader, hideLoader } = useMainLoader();
@@ -52,4 +52,14 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
   }, [searchParams, pathname, showLoader, hideLoader]);
 
   return <>{children}</>;
+}
+
+export function NavigationProvider({ children }: { children: React.ReactNode }) {
+  return (
+    <Suspense fallback={null}>
+      <NavigationProviderInner>
+        {children}
+      </NavigationProviderInner>
+    </Suspense>
+  );
 } 
