@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import RoleSwitcher from "@/components/ui/RoleSwitcher";
 import Modal from "@/components/ui/Modal";
 import { users } from "@/lib/mockData";
+import { useMainLoader } from "@/components/ui/MainLoader";
 
 export default function LoginPage() {
   const [role, setRole] = useState("parent");
@@ -22,6 +23,7 @@ export default function LoginPage() {
     type: 'error' | 'success' | 'warning' | 'info';
   }>({ isOpen: false, title: '', message: '', type: 'info' });
   const router = useRouter();
+  const { showLoader, hideLoader } = useMainLoader();
 
   useEffect(() => {
     setMounted(true);
@@ -41,6 +43,7 @@ export default function LoginPage() {
     }
 
     setIsLoading(true);
+    showLoader(); // Show main loader
 
     try {
       // Simulate API call delay
@@ -87,6 +90,7 @@ export default function LoginPage() {
       });
     } finally {
       setIsLoading(false);
+      hideLoader(); // Hide main loader
     }
   };
 
