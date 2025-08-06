@@ -1,24 +1,46 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import RoleSwitcher from "@/components/ui/RoleSwitcher";
+import { users } from "@/lib/mockData";
 
 export default function LoginPage() {
   const [role, setRole] = useState("parent");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [mounted, setMounted] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Mock authentication - store role in session storage
-    sessionStorage.setItem("userRole", role);
-    router.push("/dashboard");
+    
+    // Simple demo authentication
+    const user = Object.values(users).find(
+      (u: any) => u.username === username || u.role === role
+    );
+    
+    if (user) {
+      sessionStorage.setItem("userRole", user.role);
+      sessionStorage.setItem("username", user.username);
+      router.push("/dashboard");
+    } else {
+      // Fallback to selected role with default user
+      sessionStorage.setItem("userRole", role);
+      router.push("/dashboard");
+    }
   };
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">

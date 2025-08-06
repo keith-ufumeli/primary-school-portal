@@ -26,18 +26,24 @@ export interface Student {
 // Core mock data structure
 export const users = {
     admin: {
+      id: "admin-01",
       name: "Mrs. Chiweshe",
+      username: "admin@school.com",
       role: "admin",
       school: "Harare Primary School"
     },
     teacher: {
+      id: "teacher-01",
       name: "Mr. Ndlovu",
+      username: "teacher-01",
       role: "teacher",
       classes: ["4A", "4B"],
       subjects: ["Mathematics", "Science"]
     },
     parent: {
+      id: "parent-01",
       name: "Mr. & Mrs. Mugabe",
+      username: "parent-01",
       role: "parent",
       children: [
         { id: "std-01", name: "Tendai Mugabe", grade: "4A" },
@@ -113,17 +119,8 @@ export const users = {
 
 
 // NEW: Get user data function
-export function getUserData(role: string) {
-  switch(role) {
-    case "admin":
-      return users.admin;
-    case "teacher":
-      return users.teacher;
-    case "parent":
-      return users.parent;
-    default:
-      return users.parent; // Default fallback
-  }
+export function getUserData(username: string) {
+  return Object.values(users).find(user => user.username === username) || users.parent;
 }
 
 // NEW: Get student by ID
