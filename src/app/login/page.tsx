@@ -22,19 +22,22 @@ export default function LoginPage() {
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    // Simple demo authentication
+    // Find user by username and role match
     const user = Object.values(users).find(
-      (u: any) => u.username === username || u.role === role
+      (u: any) => u.username === username && u.role === role
     );
     
-    if (user) {
-      sessionStorage.setItem("userRole", user.role);
-      sessionStorage.setItem("username", user.username);
+    if (user || (username && password)) {
+      // Store user info in session
+      const userData = user || { role, username, name: username };
+      sessionStorage.setItem("userRole", userData.role);
+      sessionStorage.setItem("username", userData.username);
+      sessionStorage.setItem("userName", userData.name || username);
+      
+      // Redirect to dashboard
       router.push("/dashboard");
     } else {
-      // Fallback to selected role with default user
-      sessionStorage.setItem("userRole", role);
-      router.push("/dashboard");
+      alert("Please enter both username and password");
     }
   };
 
@@ -46,9 +49,12 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
       <Card className="w-full max-w-md shadow-lg">
         <CardHeader className="text-center">
-          <div className="mx-auto bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mb-4" />
-          <CardTitle className="text-2xl">School Portal Login</CardTitle>
-          <p className="text-gray-600">Access your school account</p>
+          <div className="mx-auto bg-blue-100 border-2 border-blue-300 rounded-xl w-20 h-20 mb-4 flex items-center justify-center">
+            <div className="text-blue-600 text-2xl font-bold">📚</div>
+          </div>
+          <CardTitle className="text-2xl text-blue-800">Lorem Primary School</CardTitle>
+          <p className="text-gray-600">Portal Login</p>
+          <p className="text-sm text-blue-600 font-medium">Welcome to our school community</p>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin} className="space-y-6">
@@ -84,9 +90,14 @@ export default function LoginPage() {
               Sign In
             </Button>
             
-            <div className="text-center text-sm text-gray-600">
-              <p>Demo credentials: any username/password</p>
-              <p>Role determines dashboard content</p>
+            <div className="text-center text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
+              <p className="font-medium text-blue-700 mb-2">Demo Accounts:</p>
+              <div className="text-xs space-y-1">
+                <p><strong>Admin:</strong> admin@school.com</p>
+                <p><strong>Teacher:</strong> teacher-01</p>
+                <p><strong>Parent:</strong> parent-01</p>
+                <p className="mt-2 text-gray-500">Password: any</p>
+              </div>
             </div>
           </form>
         </CardContent>

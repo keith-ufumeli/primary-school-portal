@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LayoutDashboard, User, Bell, Book, Calendar, MessageSquare, CreditCard } from "lucide-react";

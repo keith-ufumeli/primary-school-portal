@@ -30,7 +30,7 @@ export const users = {
       name: "Mrs. Chiweshe",
       username: "admin@school.com",
       role: "admin",
-      school: "Harare Primary School"
+      school: "Lorem Primary School"
     },
     teacher: {
       id: "teacher-01",

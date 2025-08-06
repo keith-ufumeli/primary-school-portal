@@ -1,6 +1,11 @@
 import { Button } from "@/components/ui/button";
 
-export default function RoleSwitcher({ role, setRole }) {
+interface RoleSwitcherProps {
+  role: string;
+  setRole: (role: string) => void;
+}
+
+export default function RoleSwitcher({ role, setRole }: RoleSwitcherProps) {
   const roles = [
     { id: "admin", label: "Admin" },
     { id: "teacher", label: "Teacher" },

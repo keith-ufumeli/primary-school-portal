@@ -1,10 +1,19 @@
+"use client"
 import { useState } from "react";
 import { LogOut, User as UserIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
-export default function Header({ user }) {
+interface HeaderProps {
+  user: {
+    name: string;
+    role: string;
+    classes?: string[];
+  };
+}
+
+export default function Header({ user }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   
   return (
@@ -13,7 +22,7 @@ export default function Header({ user }) {
         <h1 className="text-xl font-bold text-gray-800">Welcome, {user.name}</h1>
         <p className="text-gray-600 text-sm">
           {user.role === "admin" && "School Administrator"}
-          {user.role === "teacher" && `Teacher (${user.classes.join(", ")})`}
+          {user.role === "teacher" && `Teacher (${user.classes?.join(", ") || ""})`}
           {user.role === "parent" && "Parent"}
         </p>
       </div>
