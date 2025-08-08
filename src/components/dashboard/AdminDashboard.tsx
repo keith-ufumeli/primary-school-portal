@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
-// import { getUserData } from "@/lib/mockData";
+import Link from "next/link";
 
 export default function AdminDashboard() {
   const [mounted, setMounted] = useState(false);
@@ -20,7 +20,6 @@ export default function AdminDashboard() {
     );
   }
 
-  // const admin = getUserData(sessionStorage.getItem("username") || "");
   const data = [
     { name: 'Grade 1', students: 45 },
     { name: 'Grade 2', students: 52 },
@@ -35,13 +34,57 @@ export default function AdminDashboard() {
     <div>
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-        <Button>Generate Report</Button>
+        <Button className="flex items-center gap-2">
+          <span>📊</span>
+          Generate Report
+        </Button>
       </div>
+
+      {/* Enhanced Quick Actions Section */}
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <span className="text-blue-600">⚡</span>
+            Administrative Tools
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <Link href="/dashboard/announcements" className="block">
+              <Button variant="outline" className="w-full h-16 flex-col gap-1">
+                <span className="text-xl">👥</span>
+                <span className="text-xs">Staff Management</span>
+              </Button>
+            </Link>
+            <Link href="/dashboard/fees" className="block">
+              <Button variant="outline" className="w-full h-16 flex-col gap-1">
+                <span className="text-xl">💰</span>
+                <span className="text-xs">Fee Defaulters</span>
+              </Button>
+            </Link>
+            <Link href="/dashboard/announcements" className="block">
+              <Button variant="outline" className="w-full h-16 flex-col gap-1">
+                <span className="text-xl">📅</span>
+                <span className="text-xs">School Calendar</span>
+              </Button>
+            </Link>
+            <Link href="/dashboard/announcements" className="block">
+              <Button variant="outline" className="w-full h-16 flex-col gap-1">
+                <span className="text-xl">📢</span>
+                <span className="text-xs">Announcements</span>
+              </Button>
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base">Total Students</CardTitle>
+            <CardTitle className="text-base flex items-center gap-2">
+              <span className="text-green-600">👥</span>
+              Total Students
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">356</div>
@@ -51,7 +94,10 @@ export default function AdminDashboard() {
         
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base">Teaching Staff</CardTitle>
+            <CardTitle className="text-base flex items-center gap-2">
+              <span className="text-blue-600">👨‍🏫</span>
+              Teaching Staff
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">24</div>
@@ -61,7 +107,10 @@ export default function AdminDashboard() {
         
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base">Fee Collection</CardTitle>
+            <CardTitle className="text-base flex items-center gap-2">
+              <span className="text-purple-600">💰</span>
+              Fee Collection
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">78%</div>
@@ -72,7 +121,10 @@ export default function AdminDashboard() {
       
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle>Enrollment by Grade</CardTitle>
+          <CardTitle className="flex items-center gap-2">
+            <span className="text-orange-600">📊</span>
+            Enrollment by Grade
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="h-64">
@@ -91,7 +143,10 @@ export default function AdminDashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Recent Activity</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              <span className="text-green-600">📈</span>
+              Recent Activity
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -101,6 +156,7 @@ export default function AdminDashboard() {
                 <p className="text-xs text-gray-400 mt-1">Today, 10:45 AM</p>
               </div>
               <Button variant="outline" className="w-full">
+                <span className="mr-2">👁️</span>
                 View All Activity
               </Button>
             </div>
@@ -109,14 +165,33 @@ export default function AdminDashboard() {
         
         <Card>
           <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              <span className="text-blue-600">⚙️</span>
+              Quick Actions
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 gap-3">
-              <Button variant="outline">Add Staff</Button>
-              <Button variant="outline">Create Notice</Button>
-              <Button variant="outline">Generate Reports</Button>
-              <Button variant="outline">System Settings</Button>
+              <Link href="/dashboard/announcements">
+                <Button variant="outline" className="w-full">
+                  <span className="mr-2">👥</span>
+                  Add Staff
+                </Button>
+              </Link>
+              <Link href="/dashboard/announcements">
+                <Button variant="outline" className="w-full">
+                  <span className="mr-2">📢</span>
+                  Create Notice
+                </Button>
+              </Link>
+              <Button variant="outline" className="w-full">
+                <span className="mr-2">📊</span>
+                Generate Reports
+              </Button>
+              <Button variant="outline" className="w-full">
+                <span className="mr-2">⚙️</span>
+                System Settings
+              </Button>
             </div>
           </CardContent>
         </Card>

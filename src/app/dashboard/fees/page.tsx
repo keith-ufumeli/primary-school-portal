@@ -9,6 +9,7 @@ import { students } from "@/lib/mockData";
 import { FeePaymentFlow } from "@/components/ui/FeePaymentFlow";
 import { FeeDefaultersTable } from "@/components/ui/FeeDefaultersTable";
 import { InvoiceSeeder } from "@/components/ui/InvoiceSeeder";
+import BackButton from "@/components/ui/BackButton";
 
 export default function FeesPage() {
   const [userRole, setUserRole] = useState("parent");
@@ -52,6 +53,9 @@ export default function FeesPage() {
           <p className="text-yellow-700">
             Fee management is only available to administrators and parents.
           </p>
+          <div className="mt-4">
+            <BackButton href="/dashboard" label="Back to Dashboard" />
+          </div>
         </div>
       </div>
     );
@@ -59,15 +63,34 @@ export default function FeesPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-        <h1 className="text-2xl font-bold">
-          {userRole === "parent" ? "My Child's Fees" : "Fee Management"}
-        </h1>
+      {/* Page Header with Back Navigation */}
+      <div className="flex flex-col gap-4">
+        <div className="flex items-center gap-4">
+          <BackButton href="/dashboard" />
+          <div className="flex-1">
+            <h1 className="text-2xl font-bold">
+              {userRole === "parent" ? "My Child's Fees" : "Fee Management"}
+            </h1>
+            <p className="text-gray-600 mt-1">
+              {userRole === "parent" 
+                ? "View and manage your child's school fees" 
+                : "Monitor and manage all student fee payments"
+              }
+            </p>
+          </div>
+        </div>
+        
         {userRole === "admin" && (
           <div className="flex gap-2">
             <InvoiceSeeder />
-            <Button variant="outline">Generate Report</Button>
-            <Button>Send Reminders</Button>
+            <Button variant="outline">
+              <span className="mr-2">📊</span>
+              Generate Report
+            </Button>
+            <Button>
+              <span className="mr-2">📧</span>
+              Send Reminders
+            </Button>
           </div>
         )}
       </div>
@@ -121,7 +144,10 @@ export default function FeesPage() {
       {/* Filters */}
       <Card>
         <CardHeader>
-          <CardTitle>Filter Fees</CardTitle>
+          <CardTitle className="flex items-center gap-2">
+            <span className="text-blue-600">🔍</span>
+            Filter Fees
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col md:flex-row gap-4">
@@ -152,7 +178,8 @@ export default function FeesPage() {
       {/* Fee Records */}
       <Card>
         <CardHeader>
-          <CardTitle>
+          <CardTitle className="flex items-center gap-2">
+            <span className="text-green-600">💰</span>
             {userRole === "parent" ? "Fee History" : "Fee Records"}
             <span className="ml-2 text-sm font-normal text-gray-500">
               ({filteredFees.length} records)
@@ -191,21 +218,25 @@ export default function FeesPage() {
                     <div className="flex gap-2">
                       {fee.status === "paid" ? (
                         <Button variant="outline" size="sm" disabled>
+                          <span className="mr-1">📄</span>
                           Receipt
                         </Button>
                       ) : (
                         <>
                           {userRole === "parent" && (
                             <Button variant="default" size="sm">
+                              <span className="mr-1">💳</span>
                               Pay Now
                             </Button>
                           )}
                           {userRole === "admin" && (
                             <>
                               <Button variant="outline" size="sm">
+                                <span className="mr-1">✅</span>
                                 Mark Paid
                               </Button>
                               <Button variant="outline" size="sm">
+                                <span className="mr-1">📧</span>
                                 Remind
                               </Button>
                             </>
@@ -221,9 +252,10 @@ export default function FeesPage() {
 
           {filteredFees.length === 0 && (
             <div className="text-center py-8 text-gray-500">
-              No fee records found
-              {searchTerm && ` for "${searchTerm}"`}
-              {selectedTerm !== "all" && ` in Term ${selectedTerm}`}
+              <div className="text-4xl mb-4">📭</div>
+              <p>No fee records found</p>
+              {searchTerm && <p>for "{searchTerm}"</p>}
+              {selectedTerm !== "all" && <p>in Term {selectedTerm}</p>}
             </div>
           )}
         </CardContent>

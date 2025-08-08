@@ -25,7 +25,6 @@ export default function ParentDashboard() {
     );
   }
 
-  // const parent = getUserData(sessionStorage.getItem("username") || "");
   const child = students.find(s => s.id === selectedChild);
   
   if (!child) {
@@ -50,19 +49,51 @@ export default function ParentDashboard() {
         </ChildSelector>
       </div>
 
-      <div className="grid grid-cols-2 gap-3 mb-6">
-        <Link href="/dashboard/fees" className="block">
-          <Button className="w-full justify-start" variant="outline">💳 Pay Fees</Button>
-        </Link>
-        <a href="#report-card" className="block">
-          <Button className="w-full justify-start" variant="outline">📄 Report Card</Button>
-        </a>
-      </div>
+      {/* Enhanced Quick Actions Section */}
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <span className="text-blue-600">⚡</span>
+            Quick Actions
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <Link href="/dashboard/fees" className="block">
+              <Button className="w-full h-16 flex-col gap-1" variant="outline">
+                <span className="text-xl">💳</span>
+                <span className="text-xs">Pay Fees</span>
+              </Button>
+            </Link>
+            <Link href="/dashboard/student" className="block">
+              <Button className="w-full h-16 flex-col gap-1" variant="outline">
+                <span className="text-xl">📄</span>
+                <span className="text-xs">Report Cards</span>
+              </Button>
+            </Link>
+            <Link href="/dashboard/messages" className="block">
+              <Button className="w-full h-16 flex-col gap-1" variant="outline">
+                <span className="text-xl">💬</span>
+                <span className="text-xs">Messages</span>
+              </Button>
+            </Link>
+            <Link href="/dashboard/timetable" className="block">
+              <Button className="w-full h-16 flex-col gap-1" variant="outline">
+                <span className="text-xl">📅</span>
+                <span className="text-xs">Timetable</span>
+              </Button>
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base">Academic Performance</CardTitle>
+            <CardTitle className="text-base flex items-center gap-2">
+              <span className="text-blue-600">📊</span>
+              Academic Performance
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-64">
@@ -80,7 +111,10 @@ export default function ParentDashboard() {
         
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base">Fee Status</CardTitle>
+            <CardTitle className="text-base flex items-center gap-2">
+              <span className="text-green-600">💰</span>
+              Fee Status
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -94,7 +128,10 @@ export default function ParentDashboard() {
                 </div>
               ))}
               <Link href="/dashboard/fees">
-                <Button className="w-full mt-2">View All Fees</Button>
+                <Button className="w-full mt-2" variant="outline">
+                  <span className="mr-2">👁️</span>
+                  View All Fees
+                </Button>
               </Link>
             </div>
           </CardContent>
@@ -102,7 +139,10 @@ export default function ParentDashboard() {
         
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base">Recent Announcements</CardTitle>
+            <CardTitle className="text-base flex items-center gap-2">
+              <span className="text-orange-600">📢</span>
+              Recent Announcements
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -111,9 +151,12 @@ export default function ParentDashboard() {
                 <p className="text-sm text-gray-500">Due to weather conditions...</p>
                 <p className="text-xs text-gray-400 mt-1">Oct 5, 2023</p>
               </div>
-              <Button variant="outline" className="w-full">
-                View All Announcements
-              </Button>
+              <Link href="/dashboard/announcements">
+                <Button variant="outline" className="w-full">
+                  <span className="mr-2">📋</span>
+                  View All Announcements
+                </Button>
+              </Link>
             </div>
           </CardContent>
         </Card>
@@ -121,7 +164,10 @@ export default function ParentDashboard() {
       
       <Card id="report-card">
         <CardHeader>
-          <CardTitle>Attendance Overview</CardTitle>
+          <CardTitle className="flex items-center gap-2">
+            <span className="text-purple-600">📊</span>
+            Attendance Overview
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <AttendanceCalendar records={child.attendance} />

@@ -2,9 +2,9 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-// import Link from "next/link";
 import { StaffManager } from "@/components/ui/StaffManager";
 import { SchoolCalendarEditor } from "@/components/ui/SchoolCalendarEditor";
+import BackButton from "@/components/ui/BackButton";
 
 export default function AnnouncementsPage() {
   const [userRole, setUserRole] = useState("parent");
@@ -26,24 +26,84 @@ export default function AnnouncementsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Announcements</h1>
+      {/* Page Header with Back Navigation */}
+      <div className="flex flex-col gap-4">
+        <div className="flex items-center gap-4">
+          <BackButton href="/dashboard" />
+          <div className="flex-1">
+            <h1 className="text-2xl font-bold">Announcements</h1>
+            <p className="text-gray-600 mt-1">
+              {userRole === 'admin' 
+                ? "Manage school announcements and administrative tools" 
+                : "View important school notices and updates"
+              }
+            </p>
+          </div>
+        </div>
+        
         {userRole === 'admin' && (
           <div className="flex gap-2">
-            <a href="#staff"><Button variant="outline">Staff Manager</Button></a>
-            <a href="#calendar"><Button variant="outline">Calendar Editor</Button></a>
+            <a href="#staff">
+              <Button variant="outline">
+                <span className="mr-2">👥</span>
+                Staff Manager
+              </Button>
+            </a>
+            <a href="#calendar">
+              <Button variant="outline">
+                <span className="mr-2">📅</span>
+                Calendar Editor
+              </Button>
+            </a>
           </div>
         )}
       </div>
+
+      {/* Announcements Section */}
       <Card>
         <CardHeader>
-          <CardTitle>Latest Notices</CardTitle>
+          <CardTitle className="flex items-center gap-2">
+            <span className="text-blue-600">📢</span>
+            Latest Notices
+          </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-sm text-gray-600">Demo notices appear on dashboards.</div>
+          <div className="space-y-4">
+            <div className="border-b pb-4">
+              <h3 className="font-medium text-gray-900">Sports Day Postponed</h3>
+              <p className="text-sm text-gray-600 mt-1">
+                Due to weather conditions, the annual sports day has been postponed to next Friday.
+              </p>
+              <p className="text-xs text-gray-400 mt-2">Posted: Oct 5, 2023</p>
+            </div>
+            
+            <div className="border-b pb-4">
+              <h3 className="font-medium text-gray-900">Parent-Teacher Meeting</h3>
+              <p className="text-sm text-gray-600 mt-1">
+                Parent-teacher meetings will be held on October 15th. Please check your child's schedule.
+              </p>
+              <p className="text-xs text-gray-400 mt-2">Posted: Oct 3, 2023</p>
+            </div>
+            
+            <div className="border-b pb-4">
+              <h3 className="font-medium text-gray-900">Library Week</h3>
+              <p className="text-sm text-gray-600 mt-1">
+                This week is library week. Students are encouraged to visit the library and participate in reading activities.
+              </p>
+              <p className="text-xs text-gray-400 mt-2">Posted: Oct 1, 2023</p>
+            </div>
+            
+            <div className="text-center py-4">
+              <Button variant="outline">
+                <span className="mr-2">📋</span>
+                View All Announcements
+              </Button>
+            </div>
+          </div>
         </CardContent>
       </Card>
 
+      {/* Admin Tools */}
       {userRole === 'admin' && (
         <>
           <div id="staff">
