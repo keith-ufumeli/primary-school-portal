@@ -38,6 +38,53 @@ export function ParentReportCardViewer({ studentId }: { studentId: string }) {
     queryClient.invalidateQueries({ queryKey: ["reportCards", studentId] });
   };
 
+  // Update existing report cards to include all subjects
+  const updateReportCardWithAllSubjects = () => {
+    const s = students.find((x) => x.id === studentId) || students[0];
+    if (!s) return;
+
+    const teacher = s.subjects[0]?.teacher || "Class Teacher";
+    
+    // Zimbabwe primary school subjects - comprehensive list
+    const allSubjects = [
+      "English", "Mathematics", "Science", "Heritage Studies", 
+      "Physical Education", "Art", "Music", "Shona", "ICT"
+    ];
+
+    const existing = JSON.parse(localStorage.getItem("psp_report_cards") || "[]");
+    const updated = existing.map((card: any) => {
+      if (card.studentId === studentId) {
+        // Check if card has all subjects
+        const currentSubjects = card.rows.map((row: any) => row.subject);
+        const missingSubjects = allSubjects.filter(subject => !currentSubjects.includes(subject));
+        
+        if (missingSubjects.length > 0) {
+          console.log(`Updating card for ${s.name} with missing subjects:`, missingSubjects);
+          
+          // Add missing subjects to the existing rows
+          const updatedRows = [...card.rows];
+          missingSubjects.forEach(subject => {
+            const existingSubject = s.subjects.find(subj => subj.name === subject);
+            const grade = existingSubject?.grade || Math.floor(Math.random() * 20) + 75;
+            updatedRows.push({
+              subject,
+              grade,
+              teacher: teacher,
+              comment: grade >= 80 ? "Excellent performance" : grade >= 70 ? "Good performance" : "Needs improvement",
+              improvementNeeded: grade < 70
+            });
+          });
+          
+          return { ...card, rows: updatedRows, teacher };
+        }
+      }
+      return card;
+    });
+    
+    localStorage.setItem("psp_report_cards", JSON.stringify(updated));
+    queryClient.invalidateQueries({ queryKey: ["reportCards", studentId] });
+  };
+
   const onSeed = async () => {
     const s = students.find((x) => x.id === studentId) || students[0];
     if (!s) return;
@@ -46,10 +93,10 @@ export function ParentReportCardViewer({ studentId }: { studentId: string }) {
     const teacher = s.subjects[0]?.teacher || "Class Teacher";
     console.log(`Student grade: ${s.grade}, Using teacher: ${teacher}`);
 
-    // Zimbabwe primary school subjects
+    // Zimbabwe primary school subjects - comprehensive list
     const subjects = [
       "English", "Mathematics", "Science", "Heritage Studies", 
-      "Physical Education", "Art", "Music", "Shona"
+      "Physical Education", "Art", "Music", "Shona", "ICT"
     ];
 
     const reportCardData = {
@@ -124,6 +171,32 @@ export function ParentReportCardViewer({ studentId }: { studentId: string }) {
           </CardContent>
         </Card>
       )}
+      
+      {/* Check if report card has all subjects */}
+      {latest && (() => {
+        const allSubjects = ["English", "Mathematics", "Science", "Heritage Studies", "Physical Education", "Art", "Music", "Shona", "ICT"];
+        const currentSubjects = latest.rows.map((row: any) => row.subject);
+        const missingSubjects = allSubjects.filter(subject => !currentSubjects.includes(subject));
+        
+        if (missingSubjects.length > 0) {
+          return (
+            <Card>
+              <CardHeader className="flex items-center justify-between">
+                <CardTitle>Update Report Card Subjects</CardTitle>
+                <Button variant="outline" onClick={updateReportCardWithAllSubjects}>
+                  Add Missing Subjects ({missingSubjects.length})
+                </Button>
+              </CardHeader>
+              <CardContent className="text-sm text-gray-600">
+                This report card is missing {missingSubjects.length} subject(s): {missingSubjects.join(", ")}. 
+                Click "Add Missing Subjects" to include all Zimbabwe primary school subjects.
+              </CardContent>
+            </Card>
+          );
+        }
+        return null;
+      })()}
+      
       <ReportCard data={latest} />
     </div>
   );

@@ -78,7 +78,8 @@ export const users = {
         { name: "Physical Education", grade: 95, teacher: "Mr. Ndlovu" },
         { name: "Art", grade: 78, teacher: "Mr. Ndlovu" },
         { name: "Music", grade: 85, teacher: "Mr. Ndlovu" },
-        { name: "Shona", grade: 92, teacher: "Mr. Ndlovu" }
+        { name: "Shona", grade: 92, teacher: "Mr. Ndlovu" },
+        { name: "ICT", grade: 88, teacher: "Mr. Ndlovu" }
       ],
       fees: [
         { term: 1, due: "2023-02-15", amount: 50, status: "paid" },
@@ -115,7 +116,8 @@ export const users = {
         { name: "Physical Education", grade: 90, teacher: "Mrs. Chideme" },
         { name: "Art", grade: 92, teacher: "Mrs. Chideme" },
         { name: "Music", grade: 87, teacher: "Mrs. Chideme" },
-        { name: "Shona", grade: 95, teacher: "Mrs. Chideme" }
+        { name: "Shona", grade: 95, teacher: "Mrs. Chideme" },
+        { name: "ICT", grade: 89, teacher: "Mrs. Chideme" }
       ],
       fees: [
         { term: 1, due: "2023-02-15", amount: 50, status: "paid" },
@@ -152,7 +154,8 @@ export const users = {
         { name: "Physical Education", grade: 87, teacher: "Mrs. Smith" },
         { name: "Art", grade: 83, teacher: "Mrs. Smith" },
         { name: "Music", grade: 89, teacher: "Mrs. Smith" },
-        { name: "Shona", grade: 91, teacher: "Mrs. Smith" }
+        { name: "Shona", grade: 91, teacher: "Mrs. Smith" },
+        { name: "ICT", grade: 86, teacher: "Mrs. Smith" }
       ],
       fees: [
         { term: 1, due: "2023-02-15", amount: 50, status: "paid" },
@@ -189,7 +192,8 @@ export const users = {
         { name: "Physical Education", grade: 88, teacher: "Mr. Dube" },
         { name: "Art", grade: 94, teacher: "Mr. Dube" },
         { name: "Music", grade: 91, teacher: "Mr. Dube" },
-        { name: "Shona", grade: 89, teacher: "Mr. Dube" }
+        { name: "Shona", grade: 89, teacher: "Mr. Dube" },
+        { name: "ICT", grade: 90, teacher: "Mr. Dube" }
       ],
       fees: [
         { term: 1, due: "2023-02-15", amount: 50, status: "paid" },
@@ -226,7 +230,8 @@ export const users = {
         { name: "Physical Education", grade: 93, teacher: "Mrs. Moyo" },
         { name: "Art", grade: 85, teacher: "Mrs. Moyo" },
         { name: "Music", grade: 89, teacher: "Mrs. Moyo" },
-        { name: "Shona", grade: 92, teacher: "Mrs. Moyo" }
+        { name: "Shona", grade: 92, teacher: "Mrs. Moyo" },
+        { name: "ICT", grade: 91, teacher: "Mrs. Moyo" }
       ],
       fees: [
         { term: 1, due: "2023-02-15", amount: 50, status: "paid" },
