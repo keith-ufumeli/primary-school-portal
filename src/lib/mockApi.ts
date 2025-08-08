@@ -36,6 +36,7 @@ export interface ReportCardSubjectRow {
   grade: number; // 0-100
   teacher: string;
   comment?: string;
+  improvementNeeded?: boolean;
 }
 
 export interface ReportCard {
@@ -43,6 +44,8 @@ export interface ReportCard {
   studentId: string;
   studentName: string;
   gradeLevel: string;
+  dateOfBirth?: string;
+  teacher: string;
   term: Term;
   year: number;
   overallComment: string;
@@ -86,8 +89,11 @@ function ensureSeed() {
   const staff = readStorage<TeacherProfile[]>(STORAGE_KEYS.staff, []);
   if (staff.length === 0) {
     const seeded = [
-      { id: uuidv4(), fullName: "Mr. Ndlovu", subject: "Mathematics", phone: "0772 000 000", email: "ndlovu@example.com" },
-      { id: uuidv4(), fullName: "Ms. Chideme", subject: "Shona", phone: "0773 000 000", email: "chideme@example.com" },
+      { id: uuidv4(), fullName: "Mr. Ndlovu", subject: "Grade 4A Teacher", phone: "0772 000 000", email: "ndlovu@example.com" },
+      { id: uuidv4(), fullName: "Mrs. Chideme", subject: "Grade 2B Teacher", phone: "0773 000 000", email: "chideme@example.com" },
+      { id: uuidv4(), fullName: "Mrs. Smith", subject: "Grade 5A Teacher", phone: "0774 000 000", email: "smith@example.com" },
+      { id: uuidv4(), fullName: "Mr. Dube", subject: "Grade 3B Teacher", phone: "0775 000 000", email: "dube@example.com" },
+      { id: uuidv4(), fullName: "Mrs. Moyo", subject: "Grade 6A Teacher", phone: "0776 000 000", email: "moyo@example.com" },
     ];
     writeStorage(STORAGE_KEYS.staff, seeded);
   }

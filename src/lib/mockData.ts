@@ -62,13 +62,23 @@ export const users = {
         "2023-10-01": "present",
         "2023-10-02": "absent",
         "2023-10-03": "present",
-        // ... more dates
+        "2023-10-04": "present",
+        "2023-10-05": "present",
+        "2023-10-06": "present",
+        "2023-10-07": "present",
+        "2023-10-08": "absent",
+        "2023-10-09": "present",
+        "2023-10-10": "present",
       },
       subjects: [
-        { name: "Mathematics", grade: 82, teacher: "Mr. Ndlovu" },
-        { name: "English", grade: 75, teacher: "Mrs. Smith" },
-        { name: "Shona", grade: 90, teacher: "Ms. Chideme" },
-        { name: "Science", grade: 88, teacher: "Mr. Ndlovu" }
+        { name: "English", grade: 82, teacher: "Mr. Ndlovu" },
+        { name: "Mathematics", grade: 75, teacher: "Mr. Ndlovu" },
+        { name: "Science", grade: 88, teacher: "Mr. Ndlovu" },
+        { name: "Heritage Studies", grade: 90, teacher: "Mr. Ndlovu" },
+        { name: "Physical Education", grade: 95, teacher: "Mr. Ndlovu" },
+        { name: "Art", grade: 78, teacher: "Mr. Ndlovu" },
+        { name: "Music", grade: 85, teacher: "Mr. Ndlovu" },
+        { name: "Shona", grade: 92, teacher: "Mr. Ndlovu" }
       ],
       fees: [
         { term: 1, due: "2023-02-15", amount: 50, status: "paid" },
@@ -80,7 +90,154 @@ export const users = {
         { date: "2023-10-03", type: "negative", note: "Late to class" }
       ]
     },
-    // ... more students
+    {
+      id: "std-02",
+      name: "Ngonidzashe Mugabe",
+      grade: "2B",
+      photo: "/avatars/student-02.jpg",
+      attendance: {
+        "2023-10-01": "present",
+        "2023-10-02": "present",
+        "2023-10-03": "present",
+        "2023-10-04": "present",
+        "2023-10-05": "present",
+        "2023-10-06": "present",
+        "2023-10-07": "present",
+        "2023-10-08": "present",
+        "2023-10-09": "present",
+        "2023-10-10": "present",
+      },
+      subjects: [
+        { name: "English", grade: 78, teacher: "Mrs. Chideme" },
+        { name: "Mathematics", grade: 85, teacher: "Mrs. Chideme" },
+        { name: "Science", grade: 82, teacher: "Mrs. Chideme" },
+        { name: "Heritage Studies", grade: 88, teacher: "Mrs. Chideme" },
+        { name: "Physical Education", grade: 90, teacher: "Mrs. Chideme" },
+        { name: "Art", grade: 92, teacher: "Mrs. Chideme" },
+        { name: "Music", grade: 87, teacher: "Mrs. Chideme" },
+        { name: "Shona", grade: 95, teacher: "Mrs. Chideme" }
+      ],
+      fees: [
+        { term: 1, due: "2023-02-15", amount: 50, status: "paid" },
+        { term: 2, due: "2023-06-10", amount: 50, status: "paid" },
+        { term: 3, due: "2023-09-05", amount: 50, status: "pending" }
+      ],
+      behavior: [
+        { date: "2023-10-01", type: "positive", note: "Excellent class participation" },
+        { date: "2023-10-05", type: "positive", note: "Helped younger students" }
+      ]
+    },
+    {
+      id: "std-03",
+      name: "Tatenda Moyo",
+      grade: "5A",
+      photo: "/avatars/student-03.jpg",
+      attendance: {
+        "2023-10-01": "present",
+        "2023-10-02": "present",
+        "2023-10-03": "present",
+        "2023-10-04": "absent",
+        "2023-10-05": "present",
+        "2023-10-06": "present",
+        "2023-10-07": "present",
+        "2023-10-08": "present",
+        "2023-10-09": "present",
+        "2023-10-10": "present",
+      },
+      subjects: [
+        { name: "English", grade: 85, teacher: "Mrs. Smith" },
+        { name: "Mathematics", grade: 92, teacher: "Mrs. Smith" },
+        { name: "Science", grade: 88, teacher: "Mrs. Smith" },
+        { name: "Heritage Studies", grade: 90, teacher: "Mrs. Smith" },
+        { name: "Physical Education", grade: 87, teacher: "Mrs. Smith" },
+        { name: "Art", grade: 83, teacher: "Mrs. Smith" },
+        { name: "Music", grade: 89, teacher: "Mrs. Smith" },
+        { name: "Shona", grade: 91, teacher: "Mrs. Smith" }
+      ],
+      fees: [
+        { term: 1, due: "2023-02-15", amount: 50, status: "paid" },
+        { term: 2, due: "2023-06-10", amount: 50, status: "paid" },
+        { term: 3, due: "2023-09-05", amount: 50, status: "overdue" }
+      ],
+      behavior: [
+        { date: "2023-10-02", type: "positive", note: "Outstanding homework completion" },
+        { date: "2023-10-04", type: "negative", note: "Disrupted class during lesson" }
+      ]
+    },
+    {
+      id: "std-04",
+      name: "Rumbidzai Chiweshe",
+      grade: "3B",
+      photo: "/avatars/student-04.jpg",
+      attendance: {
+        "2023-10-01": "present",
+        "2023-10-02": "present",
+        "2023-10-03": "present",
+        "2023-10-04": "present",
+        "2023-10-05": "present",
+        "2023-10-06": "present",
+        "2023-10-07": "present",
+        "2023-10-08": "present",
+        "2023-10-09": "present",
+        "2023-10-10": "present",
+      },
+      subjects: [
+        { name: "English", grade: 90, teacher: "Mr. Dube" },
+        { name: "Mathematics", grade: 87, teacher: "Mr. Dube" },
+        { name: "Science", grade: 85, teacher: "Mr. Dube" },
+        { name: "Heritage Studies", grade: 92, teacher: "Mr. Dube" },
+        { name: "Physical Education", grade: 88, teacher: "Mr. Dube" },
+        { name: "Art", grade: 94, teacher: "Mr. Dube" },
+        { name: "Music", grade: 91, teacher: "Mr. Dube" },
+        { name: "Shona", grade: 89, teacher: "Mr. Dube" }
+      ],
+      fees: [
+        { term: 1, due: "2023-02-15", amount: 50, status: "paid" },
+        { term: 2, due: "2023-06-10", amount: 50, status: "paid" },
+        { term: 3, due: "2023-09-05", amount: 50, status: "paid" }
+      ],
+      behavior: [
+        { date: "2023-10-01", type: "positive", note: "Perfect attendance this week" },
+        { date: "2023-10-06", type: "positive", note: "Excellent leadership in group activities" }
+      ]
+    },
+    {
+      id: "std-05",
+      name: "Takudzwa Ndlovu",
+      grade: "6A",
+      photo: "/avatars/student-05.jpg",
+      attendance: {
+        "2023-10-01": "present",
+        "2023-10-02": "present",
+        "2023-10-03": "present",
+        "2023-10-04": "present",
+        "2023-10-05": "present",
+        "2023-10-06": "present",
+        "2023-10-07": "present",
+        "2023-10-08": "present",
+        "2023-10-09": "present",
+        "2023-10-10": "present",
+      },
+      subjects: [
+        { name: "English", grade: 88, teacher: "Mrs. Moyo" },
+        { name: "Mathematics", grade: 95, teacher: "Mrs. Moyo" },
+        { name: "Science", grade: 91, teacher: "Mrs. Moyo" },
+        { name: "Heritage Studies", grade: 87, teacher: "Mrs. Moyo" },
+        { name: "Physical Education", grade: 93, teacher: "Mrs. Moyo" },
+        { name: "Art", grade: 85, teacher: "Mrs. Moyo" },
+        { name: "Music", grade: 89, teacher: "Mrs. Moyo" },
+        { name: "Shona", grade: 92, teacher: "Mrs. Moyo" }
+      ],
+      fees: [
+        { term: 1, due: "2023-02-15", amount: 50, status: "paid" },
+        { term: 2, due: "2023-06-10", amount: 50, status: "paid" },
+        { term: 3, due: "2023-09-05", amount: 50, status: "due" }
+      ],
+      behavior: [
+        { date: "2023-10-03", type: "positive", note: "Outstanding performance in mathematics" },
+        { date: "2023-10-08", type: "positive", note: "Helped organize school library" }
+      ]
+    }
   ];
   
   export const announcements = [
@@ -113,7 +270,10 @@ export const users = {
   export const timetable = {
     "4A": [
       { time: "8:00-8:45", mon: "Mathematics", tue: "English", wed: "Shona", thu: "Science", fri: "Mathematics" },
-      // ... more periods
+      { time: "8:45-9:30", mon: "English", tue: "Mathematics", wed: "Science", thu: "Shona", fri: "English" },
+      { time: "9:30-10:15", mon: "Science", tue: "Shona", wed: "Mathematics", thu: "English", fri: "Science" },
+      { time: "10:30-11:15", mon: "Shona", tue: "Science", wed: "English", thu: "Mathematics", fri: "Shona" },
+      { time: "11:15-12:00", mon: "Physical Education", tue: "Art", wed: "Music", thu: "Social Studies", fri: "Physical Education" }
     ]
   };
 
