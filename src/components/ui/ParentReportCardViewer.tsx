@@ -22,21 +22,29 @@ export function ParentReportCardViewer({ studentId }: { studentId: string }) {
     queryClient.invalidateQueries({ queryKey: ["reportCards", studentId] });
   };
 
+  // Update existing report cards with missing teacher data
+  const updateExistingCards = () => {
+    const existing = JSON.parse(localStorage.getItem("psp_report_cards") || "[]");
+    const updated = existing.map((card: any) => {
+      if (card.studentId === studentId && !card.teacher) {
+        const s = students.find((x) => x.id === studentId);
+        const teacher = s?.subjects[0]?.teacher || "Class Teacher";
+        console.log(`Updating existing card for ${s?.name} with teacher: ${teacher}`);
+        return { ...card, teacher };
+      }
+      return card;
+    });
+    localStorage.setItem("psp_report_cards", JSON.stringify(updated));
+    queryClient.invalidateQueries({ queryKey: ["reportCards", studentId] });
+  };
+
   const onSeed = async () => {
     const s = students.find((x) => x.id === studentId) || students[0];
     if (!s) return;
 
-    // Get the teacher for this grade
-    const teacherMap: Record<string, string> = {
-      "4A": "Mr. Ndlovu",
-      "2B": "Mrs. Chideme", 
-      "5A": "Mrs. Smith",
-      "3B": "Mr. Dube",
-      "6A": "Mrs. Moyo"
-    };
-
-    const teacher = teacherMap[s.grade] || "Class Teacher";
-    console.log(`Assigning teacher: ${teacher} for grade: ${s.grade}`);
+    // Get the teacher from the student's existing subject data
+    const teacher = s.subjects[0]?.teacher || "Class Teacher";
+    console.log(`Student grade: ${s.grade}, Using teacher: ${teacher}`);
 
     // Zimbabwe primary school subjects
     const subjects = [
@@ -100,5 +108,23 @@ export function ParentReportCardViewer({ studentId }: { studentId: string }) {
     );
   }
 
-  return <ReportCard data={latest} />;
+  // Check if the existing card has teacher data
+  const hasTeacherData = latest.teacher && latest.teacher !== "Class Teacher";
+
+  return (
+    <div className="space-y-4">
+      {!hasTeacherData && (
+        <Card>
+          <CardHeader className="flex items-center justify-between">
+            <CardTitle>Update Existing Report</CardTitle>
+            <Button variant="outline" onClick={updateExistingCards}>Update with Teacher Data</Button>
+          </CardHeader>
+          <CardContent className="text-sm text-gray-600">
+            This report card was generated before teacher data was added. Click "Update with Teacher Data" to add the teacher name.
+          </CardContent>
+        </Card>
+      )}
+      <ReportCard data={latest} />
+    </div>
+  );
 } 
