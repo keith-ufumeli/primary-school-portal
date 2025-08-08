@@ -17,11 +17,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body className={`${inter.className} bg-gray-50`}>
         <QueryProvider>
-          <MainLoaderProvider>
-            <NavigationProvider>
+        <MainLoaderProvider>
+          <NavigationProvider>
               <>{children}</>
-            </NavigationProvider>
-          </MainLoaderProvider>
+          </NavigationProvider>
+        </MainLoaderProvider>
         </QueryProvider>
       </body>
     </html>
