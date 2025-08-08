@@ -1,5 +1,5 @@
 "use client";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, Home, GraduationCap, Users, Calendar, Megaphone, MessageSquare, CreditCard, User } from "lucide-react";
 import Link from "next/link";
@@ -72,7 +72,6 @@ const getBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
 
 export default function Breadcrumb() {
   const pathname = usePathname();
-  const router = useRouter();
   const items = getBreadcrumbItems(pathname);
 
   // Don't show breadcrumb on main dashboard

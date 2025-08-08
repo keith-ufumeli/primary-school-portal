@@ -18,8 +18,7 @@ import {
   DollarSign, 
   Megaphone, 
   Eye,
-  TrendingUp,
-  Users
+  TrendingUp
 } from "lucide-react";
 
 export default function ParentDashboard() {

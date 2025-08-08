@@ -35,16 +35,6 @@ export default function Header({ user }: HeaderProps) {
 
   // Check if we should show back button (not on main dashboard)
   const shouldShowBackButton = pathname !== "/dashboard";
-  
-  // Get the previous page for back navigation
-  const getPreviousPage = () => {
-    const segments = pathname.split('/').filter(Boolean);
-    if (segments.length <= 1) return "/dashboard";
-    
-    // Remove the last segment to go back one level
-    const previousPath = "/" + segments.slice(0, -1).join("/");
-    return previousPath;
-  };
 
   const handleBackClick = () => {
     router.back();

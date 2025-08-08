@@ -81,7 +81,7 @@ export default function AnnouncementsPage() {
             <div className="border-b pb-4">
               <h3 className="font-medium text-gray-900">Parent-Teacher Meeting</h3>
               <p className="text-sm text-gray-600 mt-1">
-                Parent-teacher meetings will be held on October 15th. Please check your child's schedule.
+                Parent-teacher meetings will be held on October 15th. Please check your child&apos;s schedule.
               </p>
               <p className="text-xs text-gray-400 mt-2">Posted: Oct 3, 2023</p>
             </div>

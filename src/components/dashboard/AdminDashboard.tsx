@@ -7,15 +7,12 @@ import Link from "next/link";
 import { 
   Zap, 
   Users, 
-  FileText, 
   Calendar, 
   Megaphone, 
   BarChart3, 
   DollarSign, 
-  TrendingUp, 
   Settings,
   Plus,
-  AlertTriangle,
   Activity,
   Eye
 } from "lucide-react";

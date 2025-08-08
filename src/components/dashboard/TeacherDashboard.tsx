@@ -16,9 +16,7 @@ import {
   FileText, 
   Megaphone, 
   Eye,
-  Settings,
-  AlertTriangle,
-  CheckCircle
+  Settings
 } from "lucide-react";
 
 export default function TeacherDashboard() {

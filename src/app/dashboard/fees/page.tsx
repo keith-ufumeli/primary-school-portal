@@ -54,7 +54,6 @@ export default function FeesPage() {
   const totalPages = Math.ceil(filteredFees.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentFees = filteredFees.slice(startIndex, endIndex);
 
   const feeStats = {
     total: allFeeRecords.reduce((sum, fee) => sum + fee.amount, 0),
@@ -337,7 +336,7 @@ export default function FeesPage() {
           <CardContent className="text-center py-8 text-gray-500">
             <div className="text-4xl mb-4">📭</div>
             <p>No fee records found</p>
-            {searchTerm && <p>for "{searchTerm}"</p>}
+            {searchTerm && <p>for &quot;{searchTerm}&quot;</p>}
             {selectedTerm !== "all" && <p>in Term {selectedTerm}</p>}
           </CardContent>
         </Card>
