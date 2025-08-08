@@ -20,7 +20,7 @@ function NavigationProviderInner({ children }: { children: React.ReactNode }) {
 
       // Show loader
       showLoader();
-      
+
       // Hide loader after a delay (simulates actual loading time)
       loadingTimeout.current = setTimeout(() => {
         hideLoader();
@@ -42,7 +42,7 @@ function NavigationProviderInner({ children }: { children: React.ReactNode }) {
     if (previousPath.current === pathname) {
       // This is a search params change, show a shorter loader
       showLoader();
-      
+
       const timer = setTimeout(() => {
         hideLoader();
       }, 300);
