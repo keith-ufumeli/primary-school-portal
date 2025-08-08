@@ -7,7 +7,7 @@ interface BackButtonProps {
   href?: string;
   label?: string;
   variant?: "default" | "ghost" | "outline";
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "lg";
   className?: string;
 }
 
