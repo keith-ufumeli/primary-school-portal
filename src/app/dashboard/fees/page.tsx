@@ -6,6 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { students } from "@/lib/mockData";
+import { FeePaymentFlow } from "@/components/ui/FeePaymentFlow";
+import { FeeDefaultersTable } from "@/components/ui/FeeDefaultersTable";
+import { InvoiceSeeder } from "@/components/ui/InvoiceSeeder";
 
 export default function FeesPage() {
   const [userRole, setUserRole] = useState("parent");
@@ -44,7 +47,7 @@ export default function FeesPage() {
     return (
       <div className="text-center py-16">
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 max-w-md mx-auto">
-          <div className="text-yellow-600 text-4xl mb-4">=</div>
+          <div className="text-yellow-600 text-4xl mb-4">⚠️</div>
           <h2 className="text-xl font-semibold text-yellow-800 mb-2">Access Restricted</h2>
           <p className="text-yellow-700">
             Fee management is only available to administrators and parents.
@@ -62,6 +65,7 @@ export default function FeesPage() {
         </h1>
         {userRole === "admin" && (
           <div className="flex gap-2">
+            <InvoiceSeeder />
             <Button variant="outline">Generate Report</Button>
             <Button>Send Reminders</Button>
           </div>
@@ -81,7 +85,6 @@ export default function FeesPage() {
               </div>
             </CardContent>
           </Card>
-          
           <Card>
             <CardContent className="pt-6">
               <div className="text-center">
@@ -92,7 +95,6 @@ export default function FeesPage() {
               </div>
             </CardContent>
           </Card>
-          
           <Card>
             <CardContent className="pt-6">
               <div className="text-center">
@@ -103,7 +105,6 @@ export default function FeesPage() {
               </div>
             </CardContent>
           </Card>
-          
           <Card>
             <CardContent className="pt-6">
               <div className="text-center">
@@ -228,42 +229,15 @@ export default function FeesPage() {
         </CardContent>
       </Card>
 
-      {/* Payment Summary for Parents */}
+      {/* Parent payment flow and Admin defaulters */}
       {userRole === "parent" && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Payment Summary</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-              <div className="p-4 bg-blue-50 rounded-lg">
-                <div className="text-2xl font-bold text-blue-600">
-                  ${students[0]?.fees?.filter(f => f.status === "paid").reduce((sum, f) => sum + f.amount, 0) || 0}
-                </div>
-                <p className="text-sm text-blue-700 mt-1">Paid This Year</p>
-              </div>
-              <div className="p-4 bg-yellow-50 rounded-lg">
-                <div className="text-2xl font-bold text-yellow-600">
-                  ${students[0]?.fees?.filter(f => f.status === "pending").reduce((sum, f) => sum + f.amount, 0) || 0}
-                </div>
-                <p className="text-sm text-yellow-700 mt-1">Pending</p>
-              </div>
-              <div className="p-4 bg-red-50 rounded-lg">
-                <div className="text-2xl font-bold text-red-600">
-                  ${students[0]?.fees?.filter(f => f.status === "overdue").reduce((sum, f) => sum + f.amount, 0) || 0}
-                </div>
-                <p className="text-sm text-red-700 mt-1">Overdue</p>
-              </div>
-              <div className="p-4 bg-green-50 rounded-lg">
-                <div className="text-2xl font-bold text-green-600">
-                  {students[0]?.fees?.filter(f => f.status === "paid").length || 0}/{students[0]?.fees?.length || 0}
-                </div>
-                <p className="text-sm text-green-700 mt-1">Payments Made</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <FeePaymentFlow studentId={students[0].id} />
       )}
+
+      {userRole === "admin" && (
+        <FeeDefaultersTable />
+      )}
+
     </div>
   );
 }

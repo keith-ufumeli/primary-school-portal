@@ -7,6 +7,7 @@ import ChildSelector from "@/components/ui/ChildSelector";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import AttendanceCalendar from "@/components/ui/AttendanceCalendar";
 import { students } from "@/lib/mockData";
+import Link from "next/link";
 
 export default function ParentDashboard() {
   const [selectedChild, setSelectedChild] = useState(students[0].id);
@@ -48,6 +49,15 @@ export default function ParentDashboard() {
           {students.filter(s => s.id === selectedChild || s.id === "std-02")}
         </ChildSelector>
       </div>
+
+      <div className="grid grid-cols-2 gap-3 mb-6">
+        <Link href="/dashboard/fees" className="block">
+          <Button className="w-full justify-start" variant="outline">💳 Pay Fees</Button>
+        </Link>
+        <a href="#report-card" className="block">
+          <Button className="w-full justify-start" variant="outline">📄 Report Card</Button>
+        </a>
+      </div>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <Card>
@@ -83,7 +93,9 @@ export default function ParentDashboard() {
                   <StatusBadge status={fee.status} />
                 </div>
               ))}
-              <Button className="w-full mt-2">View All Fees</Button>
+              <Link href="/dashboard/fees">
+                <Button className="w-full mt-2">View All Fees</Button>
+              </Link>
             </div>
           </CardContent>
         </Card>
@@ -107,7 +119,7 @@ export default function ParentDashboard() {
         </Card>
       </div>
       
-      <Card>
+      <Card id="report-card">
         <CardHeader>
           <CardTitle>Attendance Overview</CardTitle>
         </CardHeader>
