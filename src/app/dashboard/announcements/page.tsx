@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { StaffManager } from "@/components/ui/StaffManager";
 import { SchoolCalendarEditor } from "@/components/ui/SchoolCalendarEditor";
 import BackButton from "@/components/ui/BackButton";
+import { Users, Calendar, Megaphone, FileText } from "lucide-react";
 
 export default function AnnouncementsPage() {
   const [userRole, setUserRole] = useState("parent");
@@ -45,13 +46,13 @@ export default function AnnouncementsPage() {
           <div className="flex gap-2">
             <a href="#staff">
               <Button variant="outline">
-                <span className="mr-2">👥</span>
+                <Users className="mr-2 h-4 w-4" />
                 Staff Manager
               </Button>
             </a>
             <a href="#calendar">
               <Button variant="outline">
-                <span className="mr-2">📅</span>
+                <Calendar className="mr-2 h-4 w-4" />
                 Calendar Editor
               </Button>
             </a>
@@ -63,7 +64,7 @@ export default function AnnouncementsPage() {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <span className="text-blue-600">📢</span>
+            <Megaphone className="h-5 w-5 text-blue-600" />
             Latest Notices
           </CardTitle>
         </CardHeader>
@@ -95,7 +96,7 @@ export default function AnnouncementsPage() {
             
             <div className="text-center py-4">
               <Button variant="outline">
-                <span className="mr-2">📋</span>
+                <FileText className="mr-2 h-4 w-4" />
                 View All Announcements
               </Button>
             </div>

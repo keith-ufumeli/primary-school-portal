@@ -1,13 +1,13 @@
 "use client";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, Home } from "lucide-react";
+import { ChevronLeft, Home, GraduationCap, Users, Calendar, Megaphone, MessageSquare, CreditCard, User } from "lucide-react";
 import Link from "next/link";
 
 interface BreadcrumbItem {
   label: string;
   href: string;
-  icon?: string;
+  icon?: React.ReactNode;
 }
 
 const getBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
@@ -18,7 +18,7 @@ const getBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
   items.push({
     label: "Dashboard",
     href: "/dashboard",
-    icon: "🏠"
+    icon: <Home className="h-4 w-4" />
   });
 
   if (segments.length === 1) {
@@ -32,17 +32,16 @@ const getBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
     "timetable": "Timetable",
     "announcements": "Announcements",
     "messages": "Messages",
-    "fees": "Fees",
     "fees": "Fees"
   };
 
-  const routeIcons: Record<string, string> = {
-    "student": "🎓",
-    "classes": "👥",
-    "timetable": "📅", 
-    "announcements": "📢",
-    "messages": "💬",
-    "fees": "💳"
+  const routeIcons: Record<string, React.ReactNode> = {
+    "student": <GraduationCap className="h-4 w-4" />,
+    "classes": <Users className="h-4 w-4" />,
+    "timetable": <Calendar className="h-4 w-4" />, 
+    "announcements": <Megaphone className="h-4 w-4" />,
+    "messages": <MessageSquare className="h-4 w-4" />,
+    "fees": <CreditCard className="h-4 w-4" />
   };
 
   let currentPath = "/dashboard";
@@ -57,13 +56,13 @@ const getBreadcrumbItems = (pathname: string): BreadcrumbItem[] => {
       items.push({
         label: "Student Details",
         href: currentPath,
-        icon: "👤"
+        icon: <User className="h-4 w-4" />
       });
     } else {
       items.push({
         label: routeLabels[segment] || segment.charAt(0).toUpperCase() + segment.slice(1),
         href: currentPath,
-        icon: routeIcons[segment] || "📄"
+        icon: routeIcons[segment] || <Home className="h-4 w-4" />
       });
     }
   }
@@ -92,7 +91,7 @@ export default function Breadcrumb() {
           {index === items.length - 1 ? (
             // Current page - not clickable
             <span className="flex items-center gap-1 font-medium text-gray-900">
-              {item.icon && <span>{item.icon}</span>}
+              {item.icon && item.icon}
               {item.label}
             </span>
           ) : (
@@ -103,7 +102,7 @@ export default function Breadcrumb() {
                 size="sm" 
                 className="flex items-center gap-1 h-auto p-1 text-gray-600 hover:text-gray-900"
               >
-                {item.icon && <span>{item.icon}</span>}
+                {item.icon && item.icon}
                 {item.label}
               </Button>
             </Link>

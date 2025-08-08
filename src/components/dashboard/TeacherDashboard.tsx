@@ -6,6 +6,20 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { students } from "@/lib/mockData";
 import Link from "next/link";
+import { 
+  Zap, 
+  ClipboardList, 
+  BarChart3, 
+  MessageSquare, 
+  Calendar, 
+  Users, 
+  FileText, 
+  Megaphone, 
+  Eye,
+  Settings,
+  AlertTriangle,
+  CheckCircle
+} from "lucide-react";
 
 export default function TeacherDashboard() {
   const [mounted, setMounted] = useState(false);
@@ -29,7 +43,7 @@ export default function TeacherDashboard() {
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Teacher Dashboard</h1>
         <Button className="flex items-center gap-2">
-          <span>📝</span>
+          <ClipboardList className="h-4 w-4" />
           Create Assignment
         </Button>
       </div>
@@ -38,29 +52,29 @@ export default function TeacherDashboard() {
       <Card className="mb-6">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <span className="text-blue-600">⚡</span>
+            <Zap className="h-5 w-5 text-blue-600" />
             Teaching Tools
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <Button variant="outline" className="h-16 flex-col gap-1">
-              <span className="text-xl">📝</span>
+              <ClipboardList className="h-6 w-6" />
               <span className="text-xs">Take Attendance</span>
             </Button>
             <Button variant="outline" className="h-16 flex-col gap-1">
-              <span className="text-xl">📊</span>
+              <BarChart3 className="h-6 w-6" />
               <span className="text-xs">Grade Assignments</span>
             </Button>
             <Link href="/dashboard/messages" className="block">
               <Button variant="outline" className="w-full h-16 flex-col gap-1">
-                <span className="text-xl">💬</span>
+                <MessageSquare className="h-6 w-6" />
                 <span className="text-xs">Send Message</span>
               </Button>
             </Link>
             <Link href="/dashboard/timetable" className="block">
               <Button variant="outline" className="w-full h-16 flex-col gap-1">
-                <span className="text-xl">📅</span>
+                <Calendar className="h-6 w-6" />
                 <span className="text-xs">My Schedule</span>
               </Button>
             </Link>
@@ -72,7 +86,7 @@ export default function TeacherDashboard() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-base flex items-center gap-2">
-              <span className="text-green-600">👥</span>
+              <Users className="h-5 w-5 text-green-600" />
               My Classes
             </CardTitle>
           </CardHeader>
@@ -88,7 +102,7 @@ export default function TeacherDashboard() {
               </div>
               <Link href="/dashboard/classes">
                 <Button variant="outline" className="w-full mt-2">
-                  <span className="mr-2">⚙️</span>
+                  <Settings className="mr-2 h-4 w-4" />
                   Manage Classes
                 </Button>
               </Link>
@@ -99,7 +113,7 @@ export default function TeacherDashboard() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-base flex items-center gap-2">
-              <span className="text-orange-600">📋</span>
+              <FileText className="h-5 w-5 text-orange-600" />
               Pending Assignments
             </CardTitle>
           </CardHeader>
@@ -120,7 +134,7 @@ export default function TeacherDashboard() {
                 <StatusBadge status="pending" />
               </div>
               <Button className="w-full">
-                <span className="mr-2">👁️</span>
+                <Eye className="mr-2 h-4 w-4" />
                 View All Assignments
               </Button>
             </div>
@@ -130,23 +144,23 @@ export default function TeacherDashboard() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-base flex items-center gap-2">
-              <span className="text-purple-600">📢</span>
+              <Megaphone className="h-5 w-5 text-purple-600" />
               Quick Actions
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
               <Button variant="outline" className="w-full justify-start">
-                <span className="mr-2">📝</span>
+                <ClipboardList className="mr-2 h-4 w-4" />
                 Take Attendance
               </Button>
               <Button variant="outline" className="w-full justify-start">
-                <span className="mr-2">📊</span>
+                <BarChart3 className="mr-2 h-4 w-4" />
                 Grade Assignments
               </Button>
               <Link href="/dashboard/messages">
                 <Button variant="outline" className="w-full justify-start">
-                  <span className="mr-2">📢</span>
+                  <Megaphone className="mr-2 h-4 w-4" />
                   Send Message
                 </Button>
               </Link>
@@ -158,7 +172,7 @@ export default function TeacherDashboard() {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <span className="text-blue-600">👥</span>
+            <Users className="h-5 w-5 text-blue-600" />
             Class Roster
           </CardTitle>
         </CardHeader>
@@ -194,7 +208,7 @@ export default function TeacherDashboard() {
                   <TableCell>
                     <Link href={`/dashboard/student/${student.id}`}>
                       <Button variant="link" size="sm">
-                        <span className="mr-1">👁️</span>
+                        <Eye className="mr-1 h-3 w-3" />
                         View Profile
                       </Button>
                     </Link>

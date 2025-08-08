@@ -189,7 +189,7 @@ export function ParentReportCardViewer({ studentId }: { studentId: string }) {
               </CardHeader>
               <CardContent className="text-sm text-gray-600">
                 This report card is missing {missingSubjects.length} subject(s): {missingSubjects.join(", ")}. 
-                Click "Add Missing Subjects" to include all Zimbabwe primary school subjects.
+                Click "Add Missing Subjects" to include all subjects.
               </CardContent>
             </Card>
           );

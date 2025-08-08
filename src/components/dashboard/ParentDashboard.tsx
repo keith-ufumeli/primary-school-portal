@@ -8,6 +8,19 @@ import { StatusBadge } from "@/components/ui/StatusBadge";
 import AttendanceCalendar from "@/components/ui/AttendanceCalendar";
 import { students } from "@/lib/mockData";
 import Link from "next/link";
+import { 
+  Zap, 
+  CreditCard, 
+  FileText, 
+  MessageSquare, 
+  Calendar, 
+  BarChart3, 
+  DollarSign, 
+  Megaphone, 
+  Eye,
+  TrendingUp,
+  Users
+} from "lucide-react";
 
 export default function ParentDashboard() {
   const [selectedChild, setSelectedChild] = useState(students[0].id);
@@ -53,7 +66,7 @@ export default function ParentDashboard() {
       <Card className="mb-6">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <span className="text-blue-600">⚡</span>
+            <Zap className="h-5 w-5 text-blue-600" />
             Quick Actions
           </CardTitle>
         </CardHeader>
@@ -61,25 +74,25 @@ export default function ParentDashboard() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <Link href="/dashboard/fees" className="block">
               <Button className="w-full h-16 flex-col gap-1" variant="outline">
-                <span className="text-xl">💳</span>
+                <CreditCard className="h-6 w-6" />
                 <span className="text-xs">Pay Fees</span>
               </Button>
             </Link>
             <Link href="/dashboard/student" className="block">
               <Button className="w-full h-16 flex-col gap-1" variant="outline">
-                <span className="text-xl">📄</span>
+                <FileText className="h-6 w-6" />
                 <span className="text-xs">Report Cards</span>
               </Button>
             </Link>
             <Link href="/dashboard/messages" className="block">
               <Button className="w-full h-16 flex-col gap-1" variant="outline">
-                <span className="text-xl">💬</span>
+                <MessageSquare className="h-6 w-6" />
                 <span className="text-xs">Messages</span>
               </Button>
             </Link>
             <Link href="/dashboard/timetable" className="block">
               <Button className="w-full h-16 flex-col gap-1" variant="outline">
-                <span className="text-xl">📅</span>
+                <Calendar className="h-6 w-6" />
                 <span className="text-xs">Timetable</span>
               </Button>
             </Link>
@@ -91,7 +104,7 @@ export default function ParentDashboard() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-base flex items-center gap-2">
-              <span className="text-blue-600">📊</span>
+              <BarChart3 className="h-5 w-5 text-blue-600" />
               Academic Performance
             </CardTitle>
           </CardHeader>
@@ -112,7 +125,7 @@ export default function ParentDashboard() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-base flex items-center gap-2">
-              <span className="text-green-600">💰</span>
+              <DollarSign className="h-5 w-5 text-green-600" />
               Fee Status
             </CardTitle>
           </CardHeader>
@@ -129,7 +142,7 @@ export default function ParentDashboard() {
               ))}
               <Link href="/dashboard/fees">
                 <Button className="w-full mt-2" variant="outline">
-                  <span className="mr-2">👁️</span>
+                  <Eye className="mr-2 h-4 w-4" />
                   View All Fees
                 </Button>
               </Link>
@@ -140,7 +153,7 @@ export default function ParentDashboard() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-base flex items-center gap-2">
-              <span className="text-orange-600">📢</span>
+              <Megaphone className="h-5 w-5 text-orange-600" />
               Recent Announcements
             </CardTitle>
           </CardHeader>
@@ -153,7 +166,7 @@ export default function ParentDashboard() {
               </div>
               <Link href="/dashboard/announcements">
                 <Button variant="outline" className="w-full">
-                  <span className="mr-2">📋</span>
+                  <FileText className="mr-2 h-4 w-4" />
                   View All Announcements
                 </Button>
               </Link>
@@ -165,7 +178,7 @@ export default function ParentDashboard() {
       <Card id="report-card">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <span className="text-purple-600">📊</span>
+            <TrendingUp className="h-5 w-5 text-purple-600" />
             Attendance Overview
           </CardTitle>
         </CardHeader>

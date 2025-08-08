@@ -4,6 +4,21 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import Link from "next/link";
+import { 
+  Zap, 
+  Users, 
+  FileText, 
+  Calendar, 
+  Megaphone, 
+  BarChart3, 
+  DollarSign, 
+  TrendingUp, 
+  Settings,
+  Plus,
+  AlertTriangle,
+  Activity,
+  Eye
+} from "lucide-react";
 
 export default function AdminDashboard() {
   const [mounted, setMounted] = useState(false);
@@ -35,7 +50,7 @@ export default function AdminDashboard() {
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Admin Dashboard</h1>
         <Button className="flex items-center gap-2">
-          <span>📊</span>
+          <BarChart3 className="h-4 w-4" />
           Generate Report
         </Button>
       </div>
@@ -44,7 +59,7 @@ export default function AdminDashboard() {
       <Card className="mb-6">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <span className="text-blue-600">⚡</span>
+            <Zap className="h-5 w-5 text-blue-600" />
             Administrative Tools
           </CardTitle>
         </CardHeader>
@@ -52,25 +67,25 @@ export default function AdminDashboard() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <Link href="/dashboard/announcements" className="block">
               <Button variant="outline" className="w-full h-16 flex-col gap-1">
-                <span className="text-xl">👥</span>
+                <Users className="h-6 w-6" />
                 <span className="text-xs">Staff Management</span>
               </Button>
             </Link>
             <Link href="/dashboard/fees" className="block">
               <Button variant="outline" className="w-full h-16 flex-col gap-1">
-                <span className="text-xl">💰</span>
+                <DollarSign className="h-6 w-6" />
                 <span className="text-xs">Fee Defaulters</span>
               </Button>
             </Link>
             <Link href="/dashboard/announcements" className="block">
               <Button variant="outline" className="w-full h-16 flex-col gap-1">
-                <span className="text-xl">📅</span>
+                <Calendar className="h-6 w-6" />
                 <span className="text-xs">School Calendar</span>
               </Button>
             </Link>
             <Link href="/dashboard/announcements" className="block">
               <Button variant="outline" className="w-full h-16 flex-col gap-1">
-                <span className="text-xl">📢</span>
+                <Megaphone className="h-6 w-6" />
                 <span className="text-xs">Announcements</span>
               </Button>
             </Link>
@@ -82,7 +97,7 @@ export default function AdminDashboard() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-base flex items-center gap-2">
-              <span className="text-green-600">👥</span>
+              <Users className="h-5 w-5 text-green-600" />
               Total Students
             </CardTitle>
           </CardHeader>
@@ -95,7 +110,7 @@ export default function AdminDashboard() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-base flex items-center gap-2">
-              <span className="text-blue-600">👨‍🏫</span>
+              <Users className="h-5 w-5 text-blue-600" />
               Teaching Staff
             </CardTitle>
           </CardHeader>
@@ -108,7 +123,7 @@ export default function AdminDashboard() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-base flex items-center gap-2">
-              <span className="text-purple-600">💰</span>
+              <DollarSign className="h-5 w-5 text-purple-600" />
               Fee Collection
             </CardTitle>
           </CardHeader>
@@ -122,7 +137,7 @@ export default function AdminDashboard() {
       <Card className="mb-6">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <span className="text-orange-600">📊</span>
+            <BarChart3 className="h-5 w-5 text-orange-600" />
             Enrollment by Grade
           </CardTitle>
         </CardHeader>
@@ -144,7 +159,7 @@ export default function AdminDashboard() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <span className="text-green-600">📈</span>
+              <Activity className="h-5 w-5 text-green-600" />
               Recent Activity
             </CardTitle>
           </CardHeader>
@@ -156,7 +171,7 @@ export default function AdminDashboard() {
                 <p className="text-xs text-gray-400 mt-1">Today, 10:45 AM</p>
               </div>
               <Button variant="outline" className="w-full">
-                <span className="mr-2">👁️</span>
+                <Eye className="mr-2 h-4 w-4" />
                 View All Activity
               </Button>
             </div>
@@ -166,7 +181,7 @@ export default function AdminDashboard() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <span className="text-blue-600">⚙️</span>
+              <Settings className="h-5 w-5 text-blue-600" />
               Quick Actions
             </CardTitle>
           </CardHeader>
@@ -174,22 +189,22 @@ export default function AdminDashboard() {
             <div className="grid grid-cols-2 gap-3">
               <Link href="/dashboard/announcements">
                 <Button variant="outline" className="w-full">
-                  <span className="mr-2">👥</span>
+                  <Plus className="mr-2 h-4 w-4" />
                   Add Staff
                 </Button>
               </Link>
               <Link href="/dashboard/announcements">
                 <Button variant="outline" className="w-full">
-                  <span className="mr-2">📢</span>
+                  <Megaphone className="mr-2 h-4 w-4" />
                   Create Notice
                 </Button>
               </Link>
               <Button variant="outline" className="w-full">
-                <span className="mr-2">📊</span>
+                <BarChart3 className="mr-2 h-4 w-4" />
                 Generate Reports
               </Button>
               <Button variant="outline" className="w-full">
-                <span className="mr-2">⚙️</span>
+                <Settings className="mr-2 h-4 w-4" />
                 System Settings
               </Button>
             </div>
