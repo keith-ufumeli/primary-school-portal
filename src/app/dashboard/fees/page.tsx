@@ -9,7 +9,6 @@ import { students } from "@/lib/mockData";
 import { FeePaymentFlow } from "@/components/ui/FeePaymentFlow";
 import { FeeDefaultersTable } from "@/components/ui/FeeDefaultersTable";
 import { InvoiceSeeder } from "@/components/ui/InvoiceSeeder";
-import BackButton from "@/components/ui/BackButton";
 import { ChevronLeft, ChevronRight, Search, FileText, DollarSign, AlertTriangle, CheckCircle } from "lucide-react";
 
 export default function FeesPage() {
@@ -73,9 +72,6 @@ export default function FeesPage() {
           <p className="text-yellow-700">
             Fee management is only available to administrators and parents.
           </p>
-          <div className="mt-4">
-            <BackButton href="/dashboard" label="Back to Dashboard" />
-          </div>
         </div>
       </div>
     );
@@ -86,7 +82,6 @@ export default function FeesPage() {
       {/* Page Header with Back Navigation */}
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-4">
-          <BackButton href="/dashboard" />
           <div className="flex-1">
             <h1 className="text-2xl font-bold">
               {userRole === "parent" ? "My Child's Fees" : "Fee Management"}

@@ -1,4 +1,4 @@
-import { format, eachDayOfInterval, startOfMonth, endOfMonth } from "date-fns";
+import { format, eachDayOfInterval, startOfMonth, endOfMonth, getDay } from "date-fns";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 
 interface AttendanceCalendarProps {
@@ -9,7 +9,13 @@ export default function AttendanceCalendar({ records }: AttendanceCalendarProps)
   const today = new Date();
   const monthStart = startOfMonth(today);
   const monthEnd = endOfMonth(today);
-  const daysInMonth = eachDayOfInterval({ start: monthStart, end: monthEnd });
+  const allDaysInMonth = eachDayOfInterval({ start: monthStart, end: monthEnd });
+  
+  // Filter out weekends (Saturday = 6, Sunday = 0)
+  const weekdaysInMonth = allDaysInMonth.filter(day => {
+    const dayOfWeek = getDay(day);
+    return dayOfWeek !== 0 && dayOfWeek !== 6; // Exclude Sunday (0) and Saturday (6)
+  });
   
   const getStatus = (date: Date) => {
     const dateString = format(date, "yyyy-MM-dd");
@@ -19,16 +25,16 @@ export default function AttendanceCalendar({ records }: AttendanceCalendarProps)
   return (
     <div className="mt-4">
       <div className="text-center font-medium mb-2">
-        {format(today, "MMMM yyyy")}
+        {format(today, "MMMM yyyy")} - Weekdays Only
       </div>
-      <div className="grid grid-cols-7 gap-1">
-        {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
+      <div className="grid grid-cols-5 gap-1">
+        {["Mon", "Tue", "Wed", "Thu", "Fri"].map((day) => (
           <div key={day} className="text-center text-sm font-medium py-2">
             {day}
           </div>
         ))}
         
-        {daysInMonth.map((day) => {
+        {weekdaysInMonth.map((day) => {
           const status = getStatus(day);
           const isToday = format(day, "yyyy-MM-dd") === format(today, "yyyy-MM-dd");
           
