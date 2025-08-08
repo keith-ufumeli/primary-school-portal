@@ -9,45 +9,59 @@ function NavigationProviderInner({ children }: { children: React.ReactNode }) {
   const { showLoader, hideLoader } = useMainLoader();
   const previousPath = useRef(pathname);
   const loadingTimeout = useRef<NodeJS.Timeout | null>(null);
+  const searchTimeout = useRef<NodeJS.Timeout | null>(null);
 
+  // Route change loader
   useEffect(() => {
-    // Only show loader if we're actually changing routes
     if (previousPath.current !== pathname) {
-      // Clear any existing timeout
       if (loadingTimeout.current) {
         clearTimeout(loadingTimeout.current);
+        loadingTimeout.current = null;
+        hideLoader();
       }
 
-      // Show loader
       showLoader();
 
-      // Hide loader after a delay (simulates actual loading time)
       loadingTimeout.current = setTimeout(() => {
         hideLoader();
-      }, 800); // Slightly longer for better UX
+        loadingTimeout.current = null;
+      }, 400);
 
-      // Update previous path
       previousPath.current = pathname;
     }
 
     return () => {
       if (loadingTimeout.current) {
         clearTimeout(loadingTimeout.current);
+        loadingTimeout.current = null;
+        hideLoader();
       }
     };
-  }, [pathname, searchParams, showLoader, hideLoader]);
+  }, [pathname, showLoader, hideLoader]);
 
-  // Handle search params changes (like filters, pagination, etc.)
+  // Search params change loader (filters, pagination, etc.)
   useEffect(() => {
     if (previousPath.current === pathname) {
-      // This is a search params change, show a shorter loader
+      if (searchTimeout.current) {
+        clearTimeout(searchTimeout.current);
+        searchTimeout.current = null;
+        hideLoader();
+      }
+
       showLoader();
 
-      const timer = setTimeout(() => {
+      searchTimeout.current = setTimeout(() => {
         hideLoader();
-      }, 300);
+        searchTimeout.current = null;
+      }, 150);
 
-      return () => clearTimeout(timer);
+      return () => {
+        if (searchTimeout.current) {
+          clearTimeout(searchTimeout.current);
+          searchTimeout.current = null;
+          hideLoader();
+        }
+      };
     }
   }, [searchParams, pathname, showLoader, hideLoader]);
 

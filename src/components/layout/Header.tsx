@@ -40,7 +40,7 @@ export default function Header({ user }: HeaderProps) {
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="rounded-full p-0 h-10 w-10">
             <Avatar>
-              <AvatarImage src="/avatars/admin.jpg" />
+              <AvatarImage src="/avatars/admin.svg" />
               <AvatarFallback>
                 <UserIcon className="h-5 w-5" />
               </AvatarFallback>

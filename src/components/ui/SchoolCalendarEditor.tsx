@@ -60,8 +60,8 @@ export function SchoolCalendarEditor() {
     const moved = arrayMove(current, oldIndex, newIndex);
     // Persist as updated order by adjusting dates slightly to reflect order (demo only)
     for (let idx = 0; idx < moved.length; idx++) {
-      const e = moved[idx];
-      await updateMutation.mutateAsync({ ...e });
+      const ev = moved[idx];
+      await updateMutation.mutateAsync({ ...ev });
     }
   };
 
@@ -74,7 +74,7 @@ export function SchoolCalendarEditor() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-4">
           <Input placeholder="Event title" value={title} onChange={(e) => setTitle(e.target.value)} />
           <Input placeholder="YYYY-MM-DD" value={date} onChange={(e) => setDate(e.target.value)} />
-          <Input placeholder="Type (holiday, exam, meeting)" value={type} onChange={(e) => setType(e.target.value as any)} />
+          <Input placeholder="Type (holiday, exam, meeting)" value={type} onChange={(e) => setType(e.target.value as unknown as CalendarEvent["type"])} />
           <Button onClick={onAdd}>Add Event</Button>
         </div>
         {isLoading ? (
