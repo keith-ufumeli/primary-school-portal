@@ -7,6 +7,19 @@ import ChildSelector from "@/components/ui/ChildSelector";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import AttendanceCalendar from "@/components/ui/AttendanceCalendar";
 import { students } from "@/lib/mockData";
+import Link from "next/link";
+import { 
+  Zap, 
+  CreditCard, 
+  FileText, 
+  MessageSquare, 
+  Calendar, 
+  BarChart3, 
+  DollarSign, 
+  Megaphone, 
+  Eye,
+  TrendingUp
+} from "lucide-react";
 
 export default function ParentDashboard() {
   const [selectedChild, setSelectedChild] = useState(students[0].id);
@@ -24,7 +37,6 @@ export default function ParentDashboard() {
     );
   }
 
-  // const parent = getUserData(sessionStorage.getItem("username") || "");
   const child = students.find(s => s.id === selectedChild);
   
   if (!child) {
@@ -48,11 +60,52 @@ export default function ParentDashboard() {
           {students.filter(s => s.id === selectedChild || s.id === "std-02")}
         </ChildSelector>
       </div>
+
+      {/* Enhanced Quick Actions Section */}
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Zap className="h-5 w-5 text-blue-600" />
+            Quick Actions
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <Link href="/dashboard/fees" className="block">
+              <Button className="w-full h-16 flex-col gap-1" variant="outline">
+                <CreditCard className="h-6 w-6" />
+                <span className="text-xs">Pay Fees</span>
+              </Button>
+            </Link>
+            <Link href="/dashboard/student" className="block">
+              <Button className="w-full h-16 flex-col gap-1" variant="outline">
+                <FileText className="h-6 w-6" />
+                <span className="text-xs">Report Cards</span>
+              </Button>
+            </Link>
+            <Link href="/dashboard/messages" className="block">
+              <Button className="w-full h-16 flex-col gap-1" variant="outline">
+                <MessageSquare className="h-6 w-6" />
+                <span className="text-xs">Messages</span>
+              </Button>
+            </Link>
+            <Link href="/dashboard/timetable" className="block">
+              <Button className="w-full h-16 flex-col gap-1" variant="outline">
+                <Calendar className="h-6 w-6" />
+                <span className="text-xs">Timetable</span>
+              </Button>
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base">Academic Performance</CardTitle>
+            <CardTitle className="text-base flex items-center gap-2">
+              <BarChart3 className="h-5 w-5 text-blue-600" />
+              Academic Performance
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-64">
@@ -70,7 +123,10 @@ export default function ParentDashboard() {
         
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base">Fee Status</CardTitle>
+            <CardTitle className="text-base flex items-center gap-2">
+              <DollarSign className="h-5 w-5 text-green-600" />
+              Fee Status
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -83,14 +139,22 @@ export default function ParentDashboard() {
                   <StatusBadge status={fee.status} />
                 </div>
               ))}
-              <Button className="w-full mt-2">View All Fees</Button>
+              <Link href="/dashboard/fees">
+                <Button className="w-full mt-2" variant="outline">
+                  <Eye className="mr-2 h-4 w-4" />
+                  View All Fees
+                </Button>
+              </Link>
             </div>
           </CardContent>
         </Card>
         
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base">Recent Announcements</CardTitle>
+            <CardTitle className="text-base flex items-center gap-2">
+              <Megaphone className="h-5 w-5 text-orange-600" />
+              Recent Announcements
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -99,17 +163,23 @@ export default function ParentDashboard() {
                 <p className="text-sm text-gray-500">Due to weather conditions...</p>
                 <p className="text-xs text-gray-400 mt-1">Oct 5, 2023</p>
               </div>
-              <Button variant="outline" className="w-full">
-                View All Announcements
-              </Button>
+              <Link href="/dashboard/announcements">
+                <Button variant="outline" className="w-full">
+                  <FileText className="mr-2 h-4 w-4" />
+                  View All Announcements
+                </Button>
+              </Link>
             </div>
           </CardContent>
         </Card>
       </div>
       
-      <Card>
+      <Card id="report-card">
         <CardHeader>
-          <CardTitle>Attendance Overview</CardTitle>
+          <CardTitle className="flex items-center gap-2">
+            <TrendingUp className="h-5 w-5 text-purple-600" />
+            Attendance Overview
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <AttendanceCalendar records={child.attendance} />

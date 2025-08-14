@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { students } from "@/lib/mockData";
+import { ParentReportCardViewer } from "@/components/ui/ParentReportCardViewer";
 
 interface StudentProfileProps {
   params: Promise<{ id: string }>;
@@ -96,7 +97,7 @@ export default async function StudentProfile({ params }: StudentProfileProps) {
               <div className="space-y-3">
                 {student.behavior.map((entry, index) => (
                   <div key={index} className="flex">
-                    <div className={`w-1 ${entry.type === "positive" ? "bg-green-500" : "bg-red-500"} rounded mr-3`}></div>
+                    <div className={`${entry.type === "positive" ? "bg-green-500" : "bg-red-500"} w-1 rounded mr-3`}></div>
                     <div>
                       <p className="font-medium">{entry.note}</p>
                       <p className="text-sm text-gray-500">{entry.date}</p>
@@ -107,6 +108,10 @@ export default async function StudentProfile({ params }: StudentProfileProps) {
             </CardContent>
           </Card>
         </div>
+      </div>
+
+      <div className="mt-6">
+        <ParentReportCardViewer studentId={student.id} />
       </div>
     </div>
   );

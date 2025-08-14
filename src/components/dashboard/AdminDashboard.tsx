@@ -3,7 +3,19 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
-// import { getUserData } from "@/lib/mockData";
+import Link from "next/link";
+import { 
+  Zap, 
+  Users, 
+  Calendar, 
+  Megaphone, 
+  BarChart3, 
+  DollarSign, 
+  Settings,
+  Plus,
+  Activity,
+  Eye
+} from "lucide-react";
 
 export default function AdminDashboard() {
   const [mounted, setMounted] = useState(false);
@@ -20,7 +32,6 @@ export default function AdminDashboard() {
     );
   }
 
-  // const admin = getUserData(sessionStorage.getItem("username") || "");
   const data = [
     { name: 'Grade 1', students: 45 },
     { name: 'Grade 2', students: 52 },
@@ -35,13 +46,57 @@ export default function AdminDashboard() {
     <div>
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-        <Button>Generate Report</Button>
+        <Button className="flex items-center gap-2">
+          <BarChart3 className="h-4 w-4" />
+          Generate Report
+        </Button>
       </div>
+
+      {/* Enhanced Quick Actions Section */}
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Zap className="h-5 w-5 text-blue-600" />
+            Administrative Tools
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <Link href="/dashboard/announcements" className="block">
+              <Button variant="outline" className="w-full h-16 flex-col gap-1">
+                <Users className="h-6 w-6" />
+                <span className="text-xs">Staff Management</span>
+              </Button>
+            </Link>
+            <Link href="/dashboard/fees" className="block">
+              <Button variant="outline" className="w-full h-16 flex-col gap-1">
+                <DollarSign className="h-6 w-6" />
+                <span className="text-xs">Fee Defaulters</span>
+              </Button>
+            </Link>
+            <Link href="/dashboard/announcements" className="block">
+              <Button variant="outline" className="w-full h-16 flex-col gap-1">
+                <Calendar className="h-6 w-6" />
+                <span className="text-xs">School Calendar</span>
+              </Button>
+            </Link>
+            <Link href="/dashboard/announcements" className="block">
+              <Button variant="outline" className="w-full h-16 flex-col gap-1">
+                <Megaphone className="h-6 w-6" />
+                <span className="text-xs">Announcements</span>
+              </Button>
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base">Total Students</CardTitle>
+            <CardTitle className="text-base flex items-center gap-2">
+              <Users className="h-5 w-5 text-green-600" />
+              Total Students
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">356</div>
@@ -51,7 +106,10 @@ export default function AdminDashboard() {
         
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base">Teaching Staff</CardTitle>
+            <CardTitle className="text-base flex items-center gap-2">
+              <Users className="h-5 w-5 text-blue-600" />
+              Teaching Staff
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">24</div>
@@ -61,7 +119,10 @@ export default function AdminDashboard() {
         
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base">Fee Collection</CardTitle>
+            <CardTitle className="text-base flex items-center gap-2">
+              <DollarSign className="h-5 w-5 text-purple-600" />
+              Fee Collection
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">78%</div>
@@ -72,7 +133,10 @@ export default function AdminDashboard() {
       
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle>Enrollment by Grade</CardTitle>
+          <CardTitle className="flex items-center gap-2">
+            <BarChart3 className="h-5 w-5 text-orange-600" />
+            Enrollment by Grade
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="h-64">
@@ -91,7 +155,10 @@ export default function AdminDashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Recent Activity</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              <Activity className="h-5 w-5 text-green-600" />
+              Recent Activity
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -101,6 +168,7 @@ export default function AdminDashboard() {
                 <p className="text-xs text-gray-400 mt-1">Today, 10:45 AM</p>
               </div>
               <Button variant="outline" className="w-full">
+                <Eye className="mr-2 h-4 w-4" />
                 View All Activity
               </Button>
             </div>
@@ -109,14 +177,33 @@ export default function AdminDashboard() {
         
         <Card>
           <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              <Settings className="h-5 w-5 text-blue-600" />
+              Quick Actions
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 gap-3">
-              <Button variant="outline">Add Staff</Button>
-              <Button variant="outline">Create Notice</Button>
-              <Button variant="outline">Generate Reports</Button>
-              <Button variant="outline">System Settings</Button>
+              <Link href="/dashboard/announcements">
+                <Button variant="outline" className="w-full">
+                  <Plus className="mr-2 h-4 w-4" />
+                  Add Staff
+                </Button>
+              </Link>
+              <Link href="/dashboard/announcements">
+                <Button variant="outline" className="w-full">
+                  <Megaphone className="mr-2 h-4 w-4" />
+                  Create Notice
+                </Button>
+              </Link>
+              <Button variant="outline" className="w-full">
+                <BarChart3 className="mr-2 h-4 w-4" />
+                Generate Reports
+              </Button>
+              <Button variant="outline" className="w-full">
+                <Settings className="mr-2 h-4 w-4" />
+                System Settings
+              </Button>
             </div>
           </CardContent>
         </Card>
